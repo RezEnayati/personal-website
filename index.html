@@ -57,7 +57,14 @@
     a { color: var(--accent); text-decoration: none; transition: all 0.2s ease; }
     a:hover { text-decoration: underline; }
     ul { list-style: circle inside; padding: 0; }
-    .section { margin-top: 2rem; }
+    .section {
+  max-width: 700px;
+  width: 100%;
+  margin-top: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
     .links { display: flex; gap: 1.5rem; justify-content: center; margin-top: 1rem; flex-wrap: wrap; }
     .btn {
       padding: 0.6rem 1.2rem; background-color: var(--accent); color: var(--bg);
@@ -109,10 +116,7 @@
   </div>
 
   <div class="section">
-    <h2 style="text-align: center;">
-  <span style="display: block;">📚 Favorite Books</span>
-  <span style="display: block;">& Articles</span>
-</h2>
+    <h2>📚 Favorite Books & Articles</h2>
     <ul>
       <li><em>Deep Work</em> by Cal Newport</li>
       <li><em>Clean Code</em> by Robert C. Martin</li>
@@ -121,7 +125,7 @@
   </div>
 
   <div class="section">
-    <h2>🎵 Recently Played on Spotify</h2>
+    <h2>🎵 Playlist </h2>
     <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/3iuRUg9V3HOuEtA8kK5hVf" width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
   </div>
 
