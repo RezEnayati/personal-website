@@ -5,12 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Reza Enayati — Software Engineer, iOS Developer, and AI Enthusiast." />
   <title>Reza Enayati</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
   <style>
     :root {
       --bg: #0f0f0f;
       --fg: #f2f2f2;
       --accent: #00ffd5;
-      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    [data-theme="light"] {
+      --bg: #ffffff;
+      --fg: #000000;
+      --accent: #0066ff;
     }
 
     * {
@@ -22,19 +28,43 @@
       padding: 0;
       background-color: var(--bg);
       color: var(--fg);
-      font-family: var(--font);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
       min-height: 100vh;
       padding: 2rem;
+      transition: background-color 0.4s, color 0.4s;
+    }
+
+    nav.mobile-nav {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      border-radius: 30px;
+      padding: 0.5rem 1.5rem;
+      display: flex;
+      gap: 1.5rem;
+      z-index: 999;
+    }
+
+    nav.mobile-nav a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
     }
 
     h1 {
       font-size: 3rem;
       margin-bottom: 1rem;
       color: var(--accent);
+      animation: fadeInText 1s ease-in-out forwards;
+      text-align: center;
     }
 
     p, li {
@@ -42,6 +72,7 @@
       max-width: 800px;
       margin-bottom: 1rem;
       line-height: 1.7;
+      animation: fadeInText 1s ease-in-out forwards;
     }
 
     a {
@@ -61,7 +92,7 @@
 
     .section {
       margin-top: 2rem;
-      animation: fadeIn 0.8s ease both;
+      animation: fadeInUp 1s ease both;
     }
 
     .links {
@@ -69,6 +100,7 @@
       gap: 1.5rem;
       justify-content: center;
       margin-top: 1rem;
+      flex-wrap: wrap;
     }
 
     .btn {
@@ -93,13 +125,57 @@
       opacity: 0.6;
     }
 
+    .profile-pic {
+      border-radius: 50%;
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      margin-top: 20px;
+      box-shadow: 0 0 15px var(--accent);
+      animation: fadeIn 1s ease;
+    }
+
+    .toggle-theme {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background-color: var(--accent);
+      color: #000;
+      border: none;
+      border-radius: 50px;
+      padding: 0.4rem 1rem;
+      cursor: pointer;
+      font-weight: bold;
+      z-index: 999;
+    }
+
     @keyframes fadeIn {
+      0% { opacity: 0; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes fadeInUp {
       0% { opacity: 0; transform: translateY(20px); }
       100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInText {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @media (min-width: 768px) {
+      nav.mobile-nav {
+        display: none;
+      }
     }
   </style>
 </head>
 <body>
+  <button class="toggle-theme" onclick="toggleTheme()">🌓 Theme</button>
+
+  <img src="profile.jpg" alt="Reza Enayati" class="profile-pic" />
+
   <h1>Hi, I'm Reza Enayati 👨‍💻</h1>
 
   <div class="section">
@@ -107,8 +183,9 @@
       I'm a software engineer passionate about building clean, performant iOS apps, and diving deep into AI—especially NLP. I'm currently studying CS, working on cool projects, and preparing for grad school.
     </p>
     <div class="links">
-      <a href="RezaEnayatiResumeV2.pdf" class="btn" download>📄 Download Resume</a>
+      <a href="resume.pdf" class="btn" download>📄 Download Resume</a>
       <a href="mailto:r3zsoft@gmail.com" class="btn">💼 Hire Me</a>
+      <a href="#resume-preview" class="btn">👀 View Resume</a>
     </div>
   </div>
 
@@ -127,8 +204,30 @@
     </div>
   </div>
 
+  <div id="resume-preview" class="section">
+    <h2>📄 Resume Viewer</h2>
+    <iframe src="resume.pdf" width="100%" height="600px" style="border: 2px solid var(--accent); border-radius: 8px;"></iframe>
+  </div>
+
   <div class="footer">
     &copy; 2025 Reza Enayati. All rights reserved.
   </div>
+
+  <nav class="mobile-nav">
+    <a href="#">Home</a>
+    <a href="#resume-preview">Resume</a>
+    <a href="mailto:r3zsoft@gmail.com">Contact</a>
+  </nav>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const current = html.getAttribute("data-theme");
+      html.setAttribute("data-theme", current === "light" ? "dark" : "light");
+    }
+
+    // Set default theme
+    document.documentElement.setAttribute("data-theme", "dark");
+  </script>
 </body>
 </html>
