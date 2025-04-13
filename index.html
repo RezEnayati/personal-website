@@ -1,75 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Reza Enayati — Software Engineer, iOS Developer, and AI Enthusiast.">
+  <meta name="description" content="Reza Enayati — Software Engineer, iOS Developer, and AI Enthusiast." />
   <title>Reza Enayati</title>
   <style>
+    :root {
+      --bg: #0f0f0f;
+      --fg: #f2f2f2;
+      --accent: #00ffd5;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      font-size: 16px;
-      line-height: 1.6;
-      color: #111;
-      background-color: #fff;
-      max-width: 700px;
-      margin: 80px auto;
-      padding: 0 20px;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg);
+      color: var(--fg);
+      font-family: var(--font);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+
+    p, li {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin-bottom: 1rem;
+      line-height: 1.7;
     }
 
     a {
-      color: #0077cc;
+      color: var(--accent);
       text-decoration: none;
+      transition: all 0.2s ease;
     }
 
     a:hover {
       text-decoration: underline;
     }
 
-    h1 {
-      font-size: 28px;
-      margin-bottom: 1.2em;
-    }
-
-    p {
-      margin-bottom: 1.2em;
-    }
-
     ul {
-      margin-top: 0.5em;
+      list-style: circle inside;
+      padding: 0;
     }
 
-    li {
-      margin-bottom: 0.5em;
+    .section {
+      margin-top: 2rem;
+      animation: fadeIn 0.8s ease both;
+    }
+
+    .links {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+
+    .btn {
+      padding: 0.6rem 1.2rem;
+      background-color: var(--accent);
+      color: #000;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn:hover {
+      background-color: #00c0a9;
+    }
+
+    .footer {
+      margin-top: auto;
+      padding-top: 2rem;
+      font-size: 0.9rem;
+      opacity: 0.6;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <h1>Hi, I'm Reza Enayati.</h1>
+  <h1>Hi, I'm Reza Enayati 👨‍💻</h1>
 
-  <p>
-    I'm a software engineer who enjoys building polished iOS apps and learning about artificial intelligence — especially natural language processing. I like clean design, practical innovation, and turning ideas into working products.
-  </p>
+  <div class="section">
+    <p>
+      I'm a software engineer passionate about building clean, performant iOS apps, and diving deep into AI—especially NLP. I'm currently studying CS, working on cool projects, and preparing for grad school.
+    </p>
+    <div class="links">
+      <a href="resume.pdf" class="btn" download>📄 Download Resume</a>
+      <a href="mailto:r3zsoft@gmail.com" class="btn">💼 Hire Me</a>
+    </div>
+  </div>
 
-  <p>
-    You can find me online:
-    <a href="https://www.linkedin.com/in/rezaenayati/" target="_blank">LinkedIn</a>,
-    <a href="https://github.com/rezenayati" target="_blank">GitHub</a>
-  </p>
-
-  <p>
-    Selected projects:
+  <div class="section">
+    <h2>📁 Projects</h2>
     <ul>
-      <li><strong>PeeParty</strong> – A SwiftUI app that tracks when your friends go to the bathroom (just for fun).</li>
+      <li><strong>PeeParty</strong> – A SwiftUI app that tracks when your friends go to the bathroom (don’t ask 😂)</li>
+      <li><strong>Task Manager</strong> – Productivity app to manage and organize tasks beautifully</li>
+      <li><strong>ChatBot</strong> – An NLP-driven conversational bot</li>
     </ul>
-  </p>
+  </div>
 
-  <p>
-    I'm currently studying computer science, working on passion projects, and preparing for grad school.
-  </p>
+  <div class="section">
+    <h2>🔗 Connect</h2>
+    <div class="links">
+      <a href="https://www.linkedin.com/in/rezaenayati/" target="_blank">LinkedIn</a>
+      <a href="https://github.com/rezenayati" target="_blank">GitHub</a>
+    </div>
+  </div>
 
-  <p>
-    Reach out if you want to collaborate, talk AI, or just say hi.
-  </p>
+  <div class="footer">
+    &copy; 2025 Reza Enayati. All rights reserved.
+  </div>
 </body>
 </html>
