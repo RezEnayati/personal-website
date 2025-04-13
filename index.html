@@ -4,8 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Reza Enayati — Software Engineer, iOS Developer, and AI Enthusiast." />
+  <meta name="keywords" content="Reza Enayati, iOS Developer, Swift, AI, NLP, Resume, Projects, Software Engineer">
+  <meta name="author" content="Reza Enayati">
+
+  <meta property="og:title" content="Reza Enayati | Software Engineer">
+  <meta property="og:description" content="Personal site of Reza Enayati — iOS Developer and AI Enthusiast." />
+  <meta property="og:url" content="https://rezaenayati.co">
+  <meta property="og:image" content="https://rezaenayati.co/profile.jpg">
+  <meta property="og:type" content="website" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Reza Enayati | Software Engineer">
+  <meta name="twitter:description" content="iOS Developer, AI Enthusiast — check out Reza’s work.">
+  <meta name="twitter:image" content="https://rezaenayati.co/profile.jpg">
+
   <title>Reza Enayati</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" href="favicon.png" type="image/png">
   <style>
     :root {
       --bg: #0f0f0f;
@@ -183,9 +197,9 @@
       I'm a software engineer passionate about building clean, performant iOS apps, and diving deep into AI—especially NLP. I'm currently studying CS, working on cool projects, and preparing for grad school.
     </p>
     <div class="links">
-      <a href="resume.pdf" class="btn" download>📄 Download Resume</a>
+      <a href="resume.pdf" class="btn" target="_blank">📄 View Resume</a>
       <a href="mailto:r3zsoft@gmail.com" class="btn">💼 Hire Me</a>
-      <a href="#resume-preview" class="btn">👀 View Resume</a>
+      <a href="resume.pdf" class="btn" download="Reza_Enayati_Resume.pdf">⬇️ Download Resume</a>
     </div>
   </div>
 
@@ -206,7 +220,7 @@
 
   <div id="resume-preview" class="section">
     <h2>📄 Resume Viewer</h2>
-    <iframe src="resume.pdf.pdf" width="100%" height="600px" style="border: 2px solid var(--accent); border-radius: 8px;"></iframe>
+    <iframe src="resume.pdf" width="100%" height="600px" style="border: 2px solid var(--accent); border-radius: 8px;"></iframe>
   </div>
 
   <div class="footer">
@@ -226,7 +240,6 @@
       html.setAttribute("data-theme", current === "light" ? "dark" : "light");
     }
 
-    // Set default theme
     document.documentElement.setAttribute("data-theme", "dark");
   </script>
 </body>
