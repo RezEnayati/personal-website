@@ -19,7 +19,7 @@
   <meta name="twitter:image" content="https://rezaenayati.co/profile.jpg">
 
   <title>Reza Enayati</title>
-  <link rel="icon" href="favicon.ico" type="image/png">
+  <link rel="icon" href="favicon.png" type="image/png">
   <style>
     :root {
       --bg: #0f0f0f;
@@ -163,6 +163,38 @@
       z-index: 999;
     }
 
+    .modal {
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background-color: var(--bg);
+      padding: 1rem;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 800px;
+      box-shadow: 0 0 20px var(--accent);
+    }
+
+    .close-btn {
+      color: var(--accent);
+      font-size: 28px;
+      font-weight: bold;
+      float: right;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
     @keyframes fadeIn {
       0% { opacity: 0; transform: scale(0.95); }
       100% { opacity: 1; transform: scale(1); }
@@ -197,7 +229,7 @@
       I'm a software engineer passionate about building clean, performant iOS apps, and diving deep into AI—especially NLP. I'm currently studying CS, working on cool projects, and preparing for grad school.
     </p>
     <div class="links">
-      <a href="resume.pdf" class="btn" target="_blank">📄 View Resume</a>
+      <button class="btn" onclick="openResumeModal()">👀 View Resume</button>
       <a href="mailto:r3zsoft@gmail.com" class="btn">💼 Hire Me</a>
       <a href="resume.pdf" class="btn" download="Reza_Enayati_Resume.pdf">⬇️ Download Resume</a>
     </div>
@@ -211,8 +243,8 @@
   </div>
 
   <div class="section">
-    <h2>🎵 Favorite Songs</h2>
-    <iframe style="border-radius:12px" src="https://open.spotify.com/playlist/3iuRUg9V3HOuEtA8kK5hVf?si=1d0c2a636fb84138" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    <h2>🎵 Recently Played on Spotify</h2>
+    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/3iuRUg9V3HOuEtA8kK5hVf?utm_source=generator" width="100%" height="352" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
   </div>
 
   <div class="section">
@@ -223,18 +255,20 @@
     </div>
   </div>
 
-  <div id="resume-preview" class="section">
-    <h2>📄 Resume Viewer</h2>
-    <iframe src="resume.pdf" width="100%" height="600px" style="border: 2px solid var(--accent); border-radius: 8px;"></iframe>
-  </div>
-
   <div class="footer">
     &copy; 2025 Reza Enayati. All rights reserved.
   </div>
 
+  <div id="resumeModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeResumeModal()">&times;</span>
+      <iframe src="resume.pdf" width="100%" height="600px" style="border: none;"></iframe>
+    </div>
+  </div>
+
   <nav class="mobile-nav">
     <a href="#">Home</a>
-    <a href="#resume-preview">Resume</a>
+    <a href="javascript:void(0)" onclick="openResumeModal()">Resume</a>
     <a href="mailto:r3zsoft@gmail.com">Contact</a>
   </nav>
 
@@ -246,6 +280,13 @@
     }
 
     document.documentElement.setAttribute("data-theme", "dark");
+
+    function openResumeModal() {
+      document.getElementById("resumeModal").style.display = "flex";
+    }
+    function closeResumeModal() {
+      document.getElementById("resumeModal").style.display = "none";
+    }
   </script>
 </body>
 </html>
