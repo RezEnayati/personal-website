@@ -15,87 +15,558 @@
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Reza Enayati">
-  <meta name="twitter:description" content="iOS Developer, AI Enthusiast — check out Reza’s work.">
+  <meta name="twitter:description" content="iOS Developer, AI Enthusiast — check out Reza's work.">
   <meta name="twitter:image" content="https://rezaenayati.co/profile.jpg">
 
   <title>Reza Enayati</title>
   <link rel="icon" href="favicon2.png" type="image/png">
+  <!-- Add Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <!-- Add Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Add AOS (Animate On Scroll) library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
   <style>
     :root {
-      --bg: #1c1c1c;
+      --bg: #121212;
       --fg: #e0e0e0;
-      --accent: #888;
+      --accent: #4a6fa5;
+      --accent-light: #5e88c0;
+      --secondary: #2c3e50;
+      --tertiary: #3498db;
+      --card-bg: rgba(30, 30, 30, 0.7);
+      --gradient-start: #2c3e50;
+      --gradient-end: #4a6fa5;
     }
     [data-theme="light"] {
       --bg: #ffffff;
       --fg: #111111;
-      --accent: #555;
+      --accent: #2c3e50;
+      --accent-light: #3a5169;
+      --secondary: #4a6fa5;
+      --tertiary: #3498db;
+      --card-bg: rgba(240, 240, 240, 0.8);
+      --gradient-start: #2c3e50;
+      --gradient-end: #4a6fa5;
     }
-    * { box-sizing: border-box; }
+    * { 
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
     body {
-      margin: 0; padding: 0;
-      background-color: var(--bg); color: var(--fg);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
-      min-height: 100vh; padding: 2rem;
+      margin: 0; 
+      padding: 0;
+      background-color: var(--bg); 
+      color: var(--fg);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      justify-content: flex-start;
+      min-height: 100vh; 
+      padding: 2rem;
       transition: background-color 0.4s, color 0.4s;
+      overflow-x: hidden;
+      position: relative;
+    }
+    /* Background animation */
+    .background-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.07;
+      pointer-events: none;
+    }
+    .floating-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+      filter: blur(10px);
+      animation: float 20s infinite alternate ease-in-out;
+    }
+    @keyframes float {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+      100% {
+        transform: translate(100px, 100px) scale(1.1);
+      }
     }
     nav.mobile-nav {
-      position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%);
-      background-color: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(8px); border-radius: 30px; padding: 0.5rem 1.5rem;
-      display: flex; gap: 1.5rem; z-index: 999;
+      position: fixed; 
+      bottom: 10px; 
+      left: 50%; 
+      transform: translateX(-50%);
+      background-color: rgba(20, 20, 20, 0.8);
+      backdrop-filter: blur(10px); 
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 30px; 
+      padding: 0.8rem 2rem;
+      display: flex; 
+      gap: 2rem; 
+      z-index: 999;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+      animation: slideUp 0.5s ease-out;
+    }
+    @keyframes slideUp {
+      from { transform: translate(-50%, 100px); opacity: 0; }
+      to { transform: translate(-50%, 0); opacity: 1; }
     }
     nav.mobile-nav a {
-      color: var(--accent); text-decoration: none; font-weight: bold; font-size: 1rem;
+      color: var(--accent-light); 
+      text-decoration: none; 
+      font-weight: bold; 
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
     }
-    h1 { font-size: 3rem; margin-bottom: 1rem; color: var(--accent); text-align: center; }
-    h2 { color: var(--accent); }
+    nav.mobile-nav a:hover {
+      color: var(--secondary);
+      transform: translateY(-3px);
+    }
+    h1 { 
+      font-size: 3.5rem; 
+      margin-bottom: 1rem; 
+      background: linear-gradient(to right, var(--accent), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-align: center; 
+      animation: fadeIn 1s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h2 { 
+      color: var(--accent); 
+      position: relative;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+    }
+    h2::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -10px;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(to right, var(--accent), var(--secondary));
+      border-radius: 3px;
+      transition: width 0.3s ease;
+    }
+    h2:hover::after {
+      width: 100%;
+    }
     p, li {
-      font-size: 1.2rem; max-width: 800px; margin-bottom: 1rem; line-height: 1.7;
+      font-size: 1.2rem; 
+      max-width: 800px; 
+      margin-bottom: 1rem; 
+      line-height: 1.7;
     }
-    a { color: var(--accent); text-decoration: none; transition: all 0.2s ease; }
-    a:hover { text-decoration: underline; }
-    ul { list-style: circle inside; padding: 0; }
+    a { 
+      color: var(--accent); 
+      text-decoration: none; 
+      transition: all 0.3s ease; 
+      position: relative;
+    }
+    a:hover { 
+      color: var(--accent-light); 
+    }
+    a:not(.btn):after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background-color: var(--accent-light);
+      transition: width 0.3s ease;
+    }
+    a:not(.btn):hover:after {
+      width: 100%;
+    }
+    ul { 
+      list-style: none; 
+      padding: 0; 
+    }
+    ul li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 1.2rem;
+    }
+    ul li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 1.5rem;
+      line-height: 1.2;
+    }
     .section {
-  max-width: 700px;
-  width: 100%;
-  margin-top: 2rem;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: left;
-}
-    .links { display: flex; gap: 1.5rem; justify-content: center; margin-top: 1rem; flex-wrap: wrap; }
-    .btn {
-      padding: 0.6rem 1.2rem; background-color: var(--accent); color: var(--bg);
-      border: none; border-radius: 6px; font-weight: bold; cursor: pointer;
-      transition: background-color 0.2s ease;
+      max-width: 800px;
+      width: 100%;
+      margin-top: 3rem;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+      padding: 2rem;
+      background-color: var(--card-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
-    .btn:hover { background-color: #aaa; }
-    .footer { margin-top: auto; padding-top: 2rem; font-size: 0.9rem; opacity: 0.6; }
+    .section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    }
+    .links { 
+      display: flex; 
+      gap: 1.5rem; 
+      justify-content: center; 
+      margin-top: 1.5rem; 
+      flex-wrap: wrap; 
+    }
+    .btn {
+      padding: 0.8rem 1.5rem; 
+      background: linear-gradient(45deg, var(--accent), var(--secondary));
+      color: white;
+      border: none; 
+      border-radius: 8px; 
+      font-weight: bold; 
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.5s;
+    }
+    .btn:hover { 
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    }
+    .btn:hover::before {
+      left: 100%;
+    }
+    .footer { 
+      margin-top: 4rem; 
+      padding-top: 2rem; 
+      font-size: 0.9rem; 
+      opacity: 0.7; 
+      text-align: center;
+      width: 100%;
+      animation: fadeIn 1s ease-out 1.5s both;
+    }
+    .profile-pic-container {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      margin-top: 20px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--accent), var(--secondary));
+      padding: 5px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+      animation: pulse 3s infinite alternate ease-in-out;
+    }
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent-light);
+      }
+      100% {
+        box-shadow: 0 0 15px var(--accent), 0 0 30px var(--accent-light);
+      }
+    }
     .profile-pic {
-      border-radius: 50%; width: 160px; height: 160px; object-fit: cover; margin-top: 20px;
-      box-shadow: 0 0 15px var(--accent);
+      border-radius: 50%; 
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover;
     }
     .toggle-theme {
-      position: fixed; top: 15px; right: 15px; background-color: var(--accent);
-      color: var(--bg); border: none; border-radius: 50px; padding: 0.4rem 1rem;
-      cursor: pointer; font-weight: bold; z-index: 999;
+      position: fixed; 
+      top: 15px; 
+      right: 15px; 
+      background: linear-gradient(45deg, var(--accent), var(--secondary));
+      color: white; 
+      border: none; 
+      border-radius: 50px; 
+      padding: 0.6rem 1.2rem;
+      cursor: pointer; 
+      font-weight: bold; 
+      z-index: 999;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
-    @media (min-width: 768px) { nav.mobile-nav { display: none; } }
+    .toggle-theme:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+    /* Skills section with progress bars */
+    .skills-container {
+      margin-top: 1.5rem;
+    }
+    .skill {
+      margin-bottom: 1.5rem;
+    }
+    .skill-name {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    .skill-bar {
+      height: 10px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .skill-progress {
+      height: 100%;
+      border-radius: 10px;
+      background: linear-gradient(to right, var(--accent), var(--secondary));
+      transition: width 1.5s ease-out;
+      width: 0;
+    }
+    /* Typewriter effect */
+    .typewriter {
+      overflow: hidden;
+      border-right: 2px solid var(--accent);
+      white-space: nowrap;
+      margin: 0 auto;
+      letter-spacing: 0.05em;
+      animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+    }
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: var(--accent) }
+    }
+    /* Paper cards for the papers section */
+    .paper-card {
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-radius: 12px;
+      background-color: rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+      border-left: 3px solid var(--accent);
+    }
+    .paper-card:hover {
+      transform: translateX(10px);
+      background-color: rgba(255, 255, 255, 0.1);
+      border-left: 8px solid var(--accent);
+    }
+    /* Project cards */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .project-card {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      border-top: 3px solid transparent;
+      border-image: linear-gradient(to right, var(--accent), var(--secondary));
+      border-image-slice: 1;
+    }
+    .project-card:hover {
+      transform: translateY(-5px);
+      background-color: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    .project-title {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: var(--accent-light);
+    }
+    /* Books section */
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .book-card {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+    .book-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(to right, var(--accent), var(--tertiary));
+    }
+    .book-card:hover {
+      transform: translateY(-5px);
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    .book-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--fg);
+    }
+    .book-author {
+      font-size: 0.9rem;
+      color: var(--accent-light);
+    }
+    /* Responsive design */
+    @media (max-width: 768px) { 
+      .section {
+        padding: 1.5rem;
+      }
+      h1 {
+        font-size: 2.5rem;
+      }
+      .project-grid, .books-grid {
+        grid-template-columns: 1fr;
+      }
+      nav.mobile-nav {
+        display: flex;
+      }
+    }
+    @media (min-width: 769px) { 
+      nav.mobile-nav { 
+        display: none; 
+      }
+    }
+    /* Social media icons */
+    .social-icon {
+      font-size: 1.5rem;
+      margin: 0 0.5rem;
+      transition: all 0.3s ease;
+    }
+    .social-icon:hover {
+      transform: translateY(-5px);
+    }
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--card-bg);
+      border-radius: 50%;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 998;
+    }
+    .scroll-indicator.visible {
+      opacity: 1;
+    }
+    .scroll-indicator:hover {
+      transform: translateY(-3px);
+    }
+    /* Loading animation */
+    .loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--bg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease-out;
+    }
+    .loader.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .loader-circle {
+      width: 80px;
+      height: 80px;
+      border: 5px solid rgba(255, 255, 255, 0.1);
+      border-top: 5px solid var(--accent);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
-  <button class="toggle-theme" onclick="toggleTheme()">🌓 Theme</button>
-  <img src="profile.jpg" alt="Reza Enayati" class="profile-pic" />
-  <h1>Hi, I'm Reza! 👨‍💻</h1>
+  <!-- Loading screen -->
+  <div class="loader">
+    <div class="loader-circle"></div>
+  </div>
 
-  <div class="section">
+  <!-- Background animation -->
+  <div class="background-animation">
+    <div class="floating-circle" style="width: 300px; height: 300px; top: 10%; left: 10%; animation-delay: 0s;"></div>
+    <div class="floating-circle" style="width: 200px; height: 200px; top: 60%; left: 70%; animation-delay: 5s;"></div>
+    <div class="floating-circle" style="width: 150px; height: 150px; top: 30%; left: 80%; animation-delay: 10s;"></div>
+    <div class="floating-circle" style="width: 250px; height: 250px; top: 70%; left: 20%; animation-delay: 15s;"></div>
+  </div>
+
+  <button class="toggle-theme" onclick="toggleTheme()">🌓 Theme</button>
+  
+  <div class="profile-pic-container" data-aos="zoom-in">
+    <img src="profile.jpg" alt="Reza Enayati" class="profile-pic" />
+  </div>
+  
+  <h1 data-aos="fade-up">Hi, I'm Reza! <span class="wave">👨‍💻</span></h1>
+
+  <div class="section" data-aos="fade-up">
     <p>
-I’m a Computer Science student at California State University, Northridge, passionate about building elegant, high-performance iOS apps and exploring the depths of machine learning and AI.
-Right now, I’m focused on natural language processing and large language models. I’m currently taking Andrew Ng’s Machine Learning Specialization and Stanford’s CS224n with Chris Manning to deepen both my theoretical understanding and practical intuition. I genuinely enjoy breaking down complex systems, understanding how things work under the hood, and optimizing every layer of the stack.
-I also love reading, especially books that stretch how I think. Some recent favorites include Code: The Hidden Language of Computer Hardware and Software, Gödel, Escher, Bach, and Artificial Intelligence: A Guide for Thinking Humans.
-Outside the world of code and tech, I’m into music (mostly techno, trance, and deep house), and I have a deep appreciation for beautifully engineered cars like Porsches and BMWs. If it’s fast, clever, or well-engineered, I’m into it.
+      I'm a Computer Science student at California State University, Northridge, passionate about building elegant, high-performance iOS apps and exploring the depths of machine learning and AI.
+      Right now, I'm focused on natural language processing and large language models. I'm currently taking Andrew Ng's Machine Learning Specialization and Stanford's CS224n with Chris Manning to deepen both my theoretical understanding and practical intuition. I genuinely enjoy breaking down complex systems, understanding how things work under the hood, and optimizing every layer of the stack.
+      I also love reading, especially books that stretch how I think. Some recent favorites include Code: The Hidden Language of Computer Hardware and Software, Gödel, Escher, Bach, and Artificial Intelligence: A Guide for Thinking Humans.
+      Outside the world of code and tech, I'm into music (mostly techno, trance, and deep house), and I have a deep appreciation for beautifully engineered cars like Porsches and BMWs. If it's fast, clever, or well-engineered, I'm into it.
     </p>
     <div class="links">
       <a href="mailto:r3zsoft@gmail.com" class="btn">📧 Email Me</a>
@@ -103,98 +574,299 @@ Outside the world of code and tech, I’m into music (mostly techno, trance, and
     </div>
   </div>
 
-  <div class="section">
+  <div class="section" data-aos="fade-up">
+    <h2>🧠 Skills</h2>
+    <div class="skills-container">
+      <div class="skill">
+        <div class="skill-name">
+          <span>Swift & iOS Development</span>
+          <span>95%</span>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-progress" data-width="95%"></div>
+        </div>
+      </div>
+      <div class="skill">
+        <div class="skill-name">
+          <span>Machine Learning & AI</span>
+          <span>85%</span>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-progress" data-width="85%"></div>
+        </div>
+      </div>
+      <div class="skill">
+        <div class="skill-name">
+          <span>Firebase & Cloud Services</span>
+          <span>90%</span>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-progress" data-width="90%"></div>
+        </div>
+      </div>
+      <div class="skill">
+        <div class="skill-name">
+          <span>Python</span>
+          <span>88%</span>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-progress" data-width="88%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" data-aos="fade-up">
     <h2>📁 Projects</h2>
-    <ul>
-      <li><strong>PeeParty</strong> – An iOS app that lets you track when your friends go to the bathroom (don’t ask 😂). It uses Firebase for authentication, Firestore for storage, and Cloud Functions for notifications. The app is built with SwiftUI and follows the MVVM architecture.</li>
-      <li>
-  <strong>
-    <a href="https://github.com/RezEnayati/PizzaGuysFoodCost" target="_blank" style="color: inherit; text-decoration: underline;">
-      Pizza Guys Food Cost Calculator
-    </a>
-  </strong>
-   – A SwiftUI app that calculates food cost for Pizza Guys franchises. It gives a breakdown of prices in real time using a custom pricing engine that automatically converts units and costs to the desired amounts. It also follows the MVVM architecture.
-</li>
-      <li>
-  <strong>
-    <a href="https://github.com/RezEnayati/HotProspects" target="_blank" style="color: inherit; text-decoration: underline;">
-      HotProspects
-    </a>
-  </strong>
-   – A modern iOS networking application that helps users manage business contacts through QR codes, with built-in contact management and notification features, using Swift Data for persistence. 
-</li>
-    </ul>
+    <div class="project-grid">
+      <div class="project-card" data-aos="flip-left" data-aos-delay="100">
+        <h3 class="project-title">PeeParty</h3>
+        <p>An iOS app that lets you track when your friends go to the bathroom (don't ask 😂). It uses Firebase for authentication, Firestore for storage, and Cloud Functions for notifications. The app is built with SwiftUI and follows the MVVM architecture.</p>
+      </div>
+      <div class="project-card" data-aos="flip-left" data-aos-delay="200">
+        <h3 class="project-title">
+          <a href="https://github.com/RezEnayati/PizzaGuysFoodCost" target="_blank">
+            Pizza Guys Food Cost Calculator
+          </a>
+        </h3>
+        <p>A SwiftUI app that calculates food cost for Pizza Guys franchises. It gives a breakdown of prices in real time using a custom pricing engine that automatically converts units and costs to the desired amounts. It also follows the MVVM architecture.</p>
+      </div>
+      <div class="project-card" data-aos="flip-left" data-aos-delay="300">
+        <h3 class="project-title">
+          <a href="https://github.com/RezEnayati/HotProspects" target="_blank">
+            HotProspects
+          </a>
+        </h3>
+        <p>A modern iOS networking application that helps users manage business contacts through QR codes, with built-in contact management and notification features, using Swift Data for persistence.</p>
+      </div>
+    </div>
   </div>
 
-  <div class="section">
+  <div class="section" data-aos="fade-up">
     <h2>💼 Experience</h2>
-    <ul>
-      <li><strong>Software Engineering Intern at DJAI</strong> – Developed ML-powered tools for DJ software</li>
-    </ul>
+    <div class="paper-card" data-aos="fade-right">
+      <h3>Software Engineering Intern at DJAI</h3>
+      <p>Developed ML-powered tools for DJ software</p>
+    </div>
   </div>
 
-  <div class="section">
+  <div class="section" data-aos="fade-up">
     <h2>📚 Favorite Books</h2>
-    <ul>
-      <li><em>Gödel, Escher, Bach: an Eternal Golden Braid</em> by Douglas Hofstadter</li>
-      <li><em>Artificial Intelligence: A Guide For Thinking Humans</em> by Melanie Mitchell</li>
-      <li><em>Code: The Hidden Language of Computer Hardware and Software</em>by Charles Petzold</li>
-      <li><em>Zero to One: Notes on Startups, or How to Build the Future</em>by Peter Thiel</li>
-      <li><em>Think Again: The Power of Knowing What You Don't Know</em>by Adam Grant</li>
-      <li><em>Salt Fat Acid Heat</em>by Samin Nosrat</li>
-      <li><em>Start with Why: How Great Leaders Inspire Everyone to Take Action</em>by Simon Sinek</li>
-    </ul>
+    <div class="books-grid">
+      <div class="book-card" data-aos="zoom-in" data-aos-delay="100">
+        <h3 class="book-title">Gödel, Escher, Bach: an Eternal Golden Braid</h3>
+        <p class="book-author">by Douglas Hofstadter</p>
+      </div>
+      <div class="book-card" data-aos="zoom-in" data-aos-delay="200">
+        <h3 class="book-title">Artificial Intelligence: A Guide For Thinking Humans</h3>
+        <p class="book-author">by Melanie Mitchell</p>
+      </div>
+      <div class="book-card" data-aos="zoom-in" data-aos-delay="300">
+        <h3 class="book-title">Code: The Hidden Language of Computer Hardware and Software</h3>
+        <p class="book-author">by Charles Petzold</p>
+      </div>
+      <div class="book-card" data-aos="zoom-in" data-aos-delay="400">
+        <h3 class="book-title">Zero to One: Notes on Startups, or How to Build the Future</h3>
+        <p class="book-author">by Peter Thiel</p>
+      </div>
+      <div class="book-card" data-aos="zoom-in" data-aos-delay="500">
+        <h3 class="book-title">Think Again: The Power of Knowing What You Don't Know</h3>
+        <p class="book-author">by Adam Grant</p>
+      </div>
+      <div class="book-card" data-aos="zoom-in" data-aos-delay="600">
+        <h3 class="book-title">Salt Fat Acid Heat</h3>
+        <p class="book-author">by Samin Nosrat</p>
+      </div>
+      <div class="book-card" data-aos="zoom-in" data-aos-delay="700">
+        <h3 class="book-title">Start with Why: How Great Leaders Inspire Everyone to Take Action</h3>
+        <p class="book-author">by Simon Sinek</p>
+      </div>
+    </div>
   </div>
 
-<div class="section">
-  <h2>📝 Interesting Papers</h2>
-  <ul>
-    <li>
-      <a href="https://www.nature.com/articles/s41746-025-01512-6.pdf" target="_blank" style="color: inherit; text-decoration: underline;">
+  <div class="section" data-aos="fade-up">
+    <h2>📝 Interesting Papers</h2>
+    <div class="paper-card" data-aos="fade-right" data-aos-delay="100">
+      <a href="https://www.nature.com/articles/s41746-025-01512-6.pdf" target="_blank">
         Assessing and alleviating state anxiety in large language models
-      </a> – Emotional Influence on LLMs.
-    </li>
-    <li>
-    <a href="https://arxiv.org/abs/2407.11438" target="_blank" style="color: inherit; text-decoration: underline;">
-      Trust No Bot
-    </a> – Discovering Personal Disclosures in Human-LLM Conversations in the Wild
-  </li>
-     <li>
-    <a href="https://arxiv.org/abs/2502.03708" target="_blank" style="color: inherit; text-decoration: underline;">
-      Aggregate and conquer
-    </a> – Detecting and steering LLM concepts by combining nonlinear predictors over multiple layers
-  </li>
-  </ul>
-</div>
-
-  
-  <div class="section">
-    <h2>🎵 My Playlist </h2>
-    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/3iuRUg9V3HOuEtA8kK5hVf" width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      </a>
+      <p>– Emotional Influence on LLMs.</p>
+    </div>
+    <div class="paper-card" data-aos="fade-right" data-aos-delay="200">
+      <a href="https://arxiv.org/abs/2407.11438" target="_blank">
+        Trust No Bot
+      </a>
+      <p>– Discovering Personal Disclosures in Human-LLM Conversations in the Wild</p>
+    </div>
+    <div class="paper-card" data-aos="fade-right" data-aos-delay="300">
+      <a href="https://arxiv.org/abs/2502.03708" target="_blank">
+        Aggregate and conquer
+      </a>
+      <p>– Detecting and steering LLM concepts by combining nonlinear predictors over multiple layers</p>
+    </div>
   </div>
 
-  <div class="section">
+  <div class="section" data-aos="fade-up">
+    <h2>🎵 My Playlist</h2>
+    <div data-aos="zoom-in">
+      <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/3iuRUg9V3HOuEtA8kK5hVf" width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
+  </div>
+
+  <div class="section" data-aos="fade-up">
     <h2>🔗 Connect</h2>
     <div class="links">
-      <a href="https://www.linkedin.com/in/rezaenayati/" target="_blank">LinkedIn</a>
-      <a href="https://github.com/rezenayati" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/rezaenayati/" target="_blank" class="btn" data-aos="zoom-in" data-aos-delay="100">
+        LinkedIn
+      </a>
+      <a href="https://github.com/rezenayati" target="_blank" class="btn" data-aos="zoom-in" data-aos-delay="200">
+        GitHub
+      </a>
     </div>
   </div>
 
   <div class="footer">&copy; 2025 Reza Enayati. All rights reserved.</div>
 
+  <!-- Scroll to top button -->
+  <div class="scroll-indicator" id="scrollTop">
+    ⬆️
+  </div>
+
+  <!-- Mobile navigation -->
   <nav class="mobile-nav">
-    <a href="#">Home</a>
-    <a href="mailto:r3zsoft@gmail.com">Contact</a>
+    <a href="#">🏠 Home</a>
+    <a href="mailto:r3zsoft@gmail.com">📧 Contact</a>
   </nav>
 
+  <!-- Add AOS JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  
   <script>
+    // Initialize AOS animation
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize AOS
+      AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: false,
+        mirror: false
+      });
+      
+      // Initialize skill bars
+      setTimeout(() => {
+        document.querySelectorAll('.skill-progress').forEach(bar => {
+          bar.style.width = bar.getAttribute('data-width');
+        });
+      }, 500);
+      
+      // Add wave animation to emoji
+      const wave = document.querySelector('.wave');
+      if (wave) {
+        wave.innerHTML = '👋';
+        wave.style.display = 'inline-block';
+        wave.style.animation = 'wave-animation 2.5s infinite';
+      }
+      
+      // Add keyframes for wave animation
+      const style = document.createElement('style');
+      style.innerHTML = `
+        @keyframes wave-animation {
+          0% { transform: rotate(0deg); }
+          10% { transform: rotate(14deg); }
+          20% { transform: rotate(-8deg); }
+          30% { transform: rotate(14deg); }
+          40% { transform: rotate(-4deg); }
+          50% { transform: rotate(10deg); }
+          60% { transform: rotate(0deg); }
+          100% { transform: rotate(0deg); }
+        }
+      `;
+      document.head.appendChild(style);
+      
+      // Hide loader after page loads
+      setTimeout(() => {
+        document.querySelector('.loader').classList.add('hidden');
+      }, 800);
+      
+      // Scroll to top functionality
+      const scrollTopBtn = document.getElementById('scrollTop');
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+          scrollTopBtn.classList.add('visible');
+        } else {
+          scrollTopBtn.classList.remove('visible');
+        }
+      });
+      
+      scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    });
+    
+    // Theme toggle function
     function toggleTheme() {
       const html = document.documentElement;
       const current = html.getAttribute("data-theme");
-      html.setAttribute("data-theme", current === "light" ? "dark" : "light");
+      const newTheme = current === "light" ? "dark" : "light";
+      html.setAttribute("data-theme", newTheme);
+      
+      // Update theme icon
+      const themeIcon = document.querySelector('.toggle-theme');
+      if (newTheme === 'light') {
+        themeIcon.textContent = '☀️ Theme';
+      } else {
+        themeIcon.textContent = '🌓 Theme';
+      }
+      
+      // Animate theme change
+      document.body.style.transition = 'background-color 0.4s, color 0.4s';
+      setTimeout(() => {
+        document.body.style.transition = '';
+      }, 400);
     }
+    
+    // Set initial theme
     document.documentElement.setAttribute("data-theme", "dark");
+    
+    // Typing animation for certain elements
+    document.addEventListener('DOMContentLoaded', function() {
+      const typingElements = document.querySelectorAll('.typing-element');
+      typingElements.forEach(element => {
+        const text = element.textContent;
+        element.textContent = '';
+        element.classList.add('typewriter');
+        let i = 0;
+        const typing = setInterval(() => {
+          if (i < text.length) {
+            element.textContent += text.charAt(i);
+            i++;
+          } else {
+            clearInterval(typing);
+            element.classList.remove('typewriter');
+          }
+        }, 50);
+      });
+    });
+    
+    // Animate floating elements
+    function animateFloatingElements() {
+      const elements = document.querySelectorAll('.floating-circle');
+      elements.forEach(el => {
+        const randomX = Math.random() * 10 - 5;
+        const randomY = Math.random() * 10 - 5;
+        el.style.transform = `translate(${randomX}px, ${randomY}px)`;
+      });
+      
+      requestAnimationFrame(animateFloatingElements);
+    }
+    
+    // Initialize floating elements animation
+    window.addEventListener('load', () => {
+      animateFloatingElements();
+    });
   </script>
 </body>
 </html>
