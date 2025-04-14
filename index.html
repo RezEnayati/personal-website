@@ -327,31 +327,59 @@
       transform: translateY(-3px);
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     }
-    /* Skills section with progress bars */
-    .skills-container {
+    /* Skills grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
       margin-top: 1.5rem;
     }
-    .skill {
-      margin-bottom: 1.5rem;
-    }
-    .skill-name {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 0.5rem;
-      font-weight: 500;
-    }
-    .skill-bar {
-      height: 10px;
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    .skill-progress {
+    .skill-card {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
       height: 100%;
-      border-radius: 10px;
-      background: linear-gradient(to right, var(--accent), var(--secondary));
-      transition: width 1.5s ease-out;
-      width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .skill-card:hover {
+      transform: translateY(-10px);
+      background-color: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+    .skill-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .skill-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: var(--accent-light);
+    }
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: auto;
+    }
+    .tag {
+      background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+      color: white;
+      padding: 0.3rem 0.7rem;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      transition: all 0.2s ease;
+    }
+    .tag:hover {
+      transform: scale(1.05);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
     }
     /* Typewriter effect */
     .typewriter {
@@ -576,41 +604,43 @@
 
   <div class="section" data-aos="fade-up">
     <h2>🧠 Skills</h2>
-    <div class="skills-container">
-      <div class="skill">
-        <div class="skill-name">
-          <span>Swift & iOS Development</span>
-          <span>95%</span>
+    <div class="skills-grid">
+      <div class="skill-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="skill-icon">📱</div>
+        <h3>Swift & iOS Development</h3>
+        <div class="skill-tags">
+          <span class="tag">SwiftUI</span>
+          <span class="tag">UIKit</span>
+          <span class="tag">Core Data</span>
+          <span class="tag">MVVM</span>
+          <span class="tag">Swift Data</span>
+          <span class="tag">Combine</span>
+          <span class="tag">Xcode</span>
+          <span class="tag">Concurrency</span>
         </div>
-        <div class="skill-bar">
-          <div class="skill-progress" data-width="95%"></div>
-        </div>
-      </div>
-      <div class="skill">
-        <div class="skill-name">
-          <span>Machine Learning & AI</span>
-          <span>85%</span>
-        </div>
-        <div class="skill-bar">
-          <div class="skill-progress" data-width="85%"></div>
-        </div>
-      </div>
-      <div class="skill">
-        <div class="skill-name">
-          <span>Firebase & Cloud Services</span>
-          <span>90%</span>
-        </div>
-        <div class="skill-bar">
-          <div class="skill-progress" data-width="90%"></div>
+      </div>      
+      
+      <div class="skill-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="skill-icon">☁️</div>
+        <h3>Firebase & Cloud Services</h3>
+        <div class="skill-tags">
+          <span class="tag">Firestore</span>
+          <span class="tag">Authentication</span>
+          <span class="tag">Cloud Functions</span>
+          <span class="tag">Storage</span>
         </div>
       </div>
-      <div class="skill">
-        <div class="skill-name">
-          <span>Python</span>
-          <span>88%</span>
-        </div>
-        <div class="skill-bar">
-          <div class="skill-progress" data-width="88%"></div>
+      
+      <div class="skill-card" data-aos="fade-up" data-aos-delay="400">
+        <div class="skill-icon">🐍</div>
+        <h3>Python</h3>
+        <div class="skill-tags">
+          <span class="tag">NumPy</span>
+          <span class="tag">Matplotlib</span>
+          <span class="tag">TensorFlow</span>
+          <span class="tag">PyTorch</span>
+          <span class="tag">Pandas</span>
+          <span class="tag">Seaborn</span>
         </div>
       </div>
     </div>
@@ -754,8 +784,10 @@
       
       // Initialize skill bars
       setTimeout(() => {
-        document.querySelectorAll('.skill-progress').forEach(bar => {
-          bar.style.width = bar.getAttribute('data-width');
+        document.querySelectorAll('.skill-card').forEach((card, index) => {
+          setTimeout(() => {
+            card.classList.add('animated');
+          }, index * 100);
         });
       }, 500);
       
