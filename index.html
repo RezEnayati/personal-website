@@ -284,7 +284,7 @@
       position: relative;
       width: 180px;
       height: 180px;
-      margin-top: 20px;
+      margin: 0 auto;
       border-radius: 50%;
       background: linear-gradient(45deg, var(--accent), var(--secondary));
       padding: 5px;
@@ -583,13 +583,14 @@
 
   <button class="toggle-theme" onclick="toggleTheme()">🌓 Theme</button>
   
-  <div class="profile-pic-container" data-aos="zoom-in">
-    <img src="profile.jpg" alt="Reza Enayati" class="profile-pic" />
+  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; margin-bottom: 2rem;">
+    <div class="profile-pic-container" data-aos="zoom-in" style="margin-bottom: 1.5rem;">
+      <img src="profile.jpg" alt="Reza Enayati" class="profile-pic" />
+    </div>
+    <h1 data-aos="fade-up" style="margin-bottom: 0.5rem;">Hi, I'm Reza! <span class="wave">👨‍💻</span></h1>
   </div>
-  
-  <h1 data-aos="fade-up">Hi, I'm Reza! <span class="wave">👨‍💻</span></h1>
 
-  <div class="section" data-aos="fade-up">
+  <div class="section" data-aos="fade-up" style="margin-top: 0rem;">
     <p>
       I'm a Computer Science student at California State University, Northridge, passionate about building elegant, high-performance iOS apps and exploring the depths of machine learning and AI.
       Right now, I'm focused on natural language processing and large language models. I'm currently taking Andrew Ng's Machine Learning Specialization and Stanford's CS224n with Chris Manning to deepen both my theoretical understanding and practical intuition. I genuinely enjoy breaking down complex systems, understanding how things work under the hood, and optimizing every layer of the stack.
@@ -615,10 +616,20 @@
           <span class="tag">MVVM</span>
           <span class="tag">Swift Data</span>
           <span class="tag">Combine</span>
+          <span class="tag">CloudKit</span>
+          <span class="tag">ARKit</span>
           <span class="tag">Xcode</span>
-          <span class="tag">Concurrency</span>
         </div>
-      </div>      
+      </div>
+      
+      <div class="skill-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="skill-icon">🤖</div>
+        <h3>Machine Learning & AI</h3>
+        <div class="skill-tags">
+          <span class="tag">NLP</span>
+          <span class="tag">Deep Learning</span>
+        </div>
+      </div>
       
       <div class="skill-card" data-aos="fade-up" data-aos-delay="300">
         <div class="skill-icon">☁️</div>
