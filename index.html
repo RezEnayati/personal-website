@@ -53,6 +53,10 @@
       --gradient: linear-gradient(135deg, #374151 0%, #1F2937 100%);
     }
 
+    [data-theme="light"] .github-chart {
+    filter: invert(1) hue-rotate(180deg);
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -608,6 +612,29 @@
       .projects-grid {
         grid-template-columns: 1fr;
       }
+
+      .github-card {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 1.25rem;
+  border: 1px solid var(--border);
+  text-align: center;
+  backdrop-filter: blur(12px);
+  transition: all 0.4s ease;
+  margin-bottom: 2rem;
+}
+
+.github-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--accent);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.github-chart {
+  max-width: 100%;
+  height: auto;
+  filter: brightness(0.9);
+}
     }
 
     /* Smooth transitions */
@@ -902,6 +929,16 @@
         </div>
       </div>
     </section>
+
+
+    <section id="github">
+      <div class="container">
+      <h2 class="section-title">GitHub Activity</h2>
+      <div class="github-card">
+        <img src="https://ghchart.rshah.org/rezenayati" alt="GitHub Contribution Chart" class="github-chart" />
+      </div>
+    </div>
+  </section>
 
     <section id="connect">
       <div class="container">
