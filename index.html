@@ -1276,13 +1276,9 @@
       <p>&copy; 2025 Reza Enayati. All rights reserved.</p>
     </div>
   </footer>
-  
- <!-- Replace your entire script section with this much simpler version -->
-<!-- Replace your entire script section with this simple version -->
-<!-- Alternative approach using Skypack CDN -->
 <script type="module">
-  // Import the Gradio client using Skypack (ES module optimized CDN)
-  import { Client } from "https://cdn.skypack.dev/@gradio/client@1.0.0";
+  // Import the Gradio client using unpkg CDN
+  import { Client } from "https://unpkg.com/@gradio/client@1.6.0/dist/index.js";
 
   let gradioClient = null;
   let isTyping = false;
@@ -1312,7 +1308,9 @@
       }
 
       console.log('Sending message to Gradio:', message);
-      const result = await client.predict("/chat", { message: message });
+      const result = await client.predict("/chat", { 
+        message: message 
+      });
       console.log('Received response from Gradio:', result);
       
       return result.data[0] || 'Sorry, I didn\'t receive a proper response.';
@@ -1439,9 +1437,6 @@
     }
   }
 
-  // Make sendMessage available globally for the button onclick
-  window.sendMessage = sendMessage;
-
   // Theme toggle functionality
   function toggleTheme() {
     const html = document.documentElement;
@@ -1452,7 +1447,8 @@
     localStorage.setItem('theme', newTheme);
   }
 
-  // Make theme toggle available globally
+  // Make functions available globally for onclick handlers
+  window.sendMessage = sendMessage;
   window.toggleTheme = toggleTheme;
 
   // Initialize everything
