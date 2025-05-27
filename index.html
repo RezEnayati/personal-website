@@ -717,6 +717,217 @@
     * {
       transition: color 0.3s, background-color 0.3s, border-color 0.3s;
     }
+
+  /* Enhanced Chat Container */
+.chat-container-custom {
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--card-bg);
+  border-radius: 1.25rem;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+}
+
+.chat-container-custom:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.chat-header {
+  padding: 2rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  background: var(--card-bg);
+}
+
+.chat-header h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.chat-header p {
+  color: var(--text-secondary);
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* Chat Messages Area */
+.chat-messages {
+  height: 400px;
+  overflow-y: auto;
+  padding: 1.5rem;
+  background: var(--primary);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.message {
+  max-width: 80%;
+  padding: 1rem 1.25rem;
+  border-radius: 1rem;
+  word-wrap: break-word;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.message.user {
+  align-self: flex-end;
+  background: var(--gradient);
+  color: white;
+  border-bottom-right-radius: 0.5rem;
+}
+
+.message.bot {
+  align-self: flex-start;
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-bottom-left-radius: 0.5rem;
+}
+
+.message.typing {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  padding: 1rem 1.25rem;
+  align-self: flex-start;
+  border-bottom-left-radius: 0.5rem;
+}
+
+/* Typing indicator */
+.typing-indicator {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.typing-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: typing 1.4s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(1) { animation-delay: -0.32s; }
+.typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes typing {
+  0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Chat Input Area */
+.chat-input-container {
+  padding: 1.5rem;
+  background: var(--card-bg);
+  border-top: 1px solid var(--border);
+}
+
+.chat-input-wrapper {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-end;
+}
+
+.chat-input {
+  flex: 1;
+  background: var(--primary);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 0.875rem 1.125rem;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.95rem;
+  resize: none;
+  min-height: 44px;
+  max-height: 120px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.chat-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(75, 85, 99, 0.1);
+}
+
+.chat-input::placeholder {
+  color: var(--text-secondary);
+}
+
+.send-button {
+  background: var(--gradient);
+  border: none;
+  border-radius: 1rem;
+  padding: 0.875rem 1.125rem;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 80px;
+  justify-content: center;
+}
+
+.send-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+}
+
+.send-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Welcome message */
+.welcome-message {
+  text-align: center;
+  color: var(--text-secondary);
+  font-style: italic;
+  padding: 2rem;
+}
+
+/* Error message */
+.error-message {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  margin: 1rem;
+  text-align: center;
+}
+
+/* Scrollbar styling */
+.chat-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 3px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-light);
+}
 </style>
 </head>
 <body>
@@ -760,22 +971,34 @@
         </div>
       </div>
     </section>
-
-   <section id="chat">
+<section id="chat">
   <div class="container">
     <h2 class="section-title">Chat with RezAi</h2>
-    <div class="chat-cta">
-      <div class="chat-preview">
-        <h3>🤖 RezAi Assistant</h3>
-        <p>A fine-tuned model trained on my conversations to replicate my texting style across English, Farsi, and Finglish.</p>
-        <div class="chat-features">
-          <span class="feature">💬 Natural Conversations</span>
-          <span class="feature">🧠 Personal Training Data</span>
-          <span class="feature">🌍 Multi-language Support</span>
+    <div class="chat-container-custom">
+      <div class="chat-header">
+        <h3>RezAi Assistant</h3>
+        <p>Ask me anything about AI, programming, or just have a chat!</p>
+      </div>
+      
+      <div class="chat-messages" id="chatMessages">
+        <div class="welcome-message">
+          👋 Hi! I'm RezAi. How can I help you today?
         </div>
-        <a href="https://huggingface.co/spaces/rezaenayati/RezAi" target="_blank" class="btn btn-primary">
-          Start Chatting →
-        </a>
+      </div>
+      
+      <div class="chat-input-container">
+        <div class="chat-input-wrapper">
+          <textarea 
+            id="chatInput" 
+            class="chat-input" 
+            placeholder="Type your message here..."
+            rows="1"
+          ></textarea>
+          <button id="sendButton" class="send-button" onclick="sendMessage()">
+            <span id="sendText">Send</span>
+            <span id="sendIcon">🚀</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -1052,36 +1275,219 @@
     </div>
   </footer>
 
-  <script>
-    // Theme toggle functionality
-    function toggleTheme() {
-      const html = document.documentElement;
-      const currentTheme = html.getAttribute('data-theme');
-      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-      
-      html.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-    }
+  <script type="module">
+  import { Client } from 'https://cdn.jsdelivr.net/npm/@gradio/client@1.0.0/+esm';
 
-    // Check for saved theme preference or prefer-color-scheme
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  let gradioClient = null;
+  let isConnecting = false;
+  let isTyping = false;
+
+  // Initialize Gradio client
+  async function initGradioClient() {
+    if (gradioClient || isConnecting) return gradioClient;
     
-    if (savedTheme) {
-      document.documentElement.setAttribute('data-theme', savedTheme);
-    } else if (prefersDark) {
-      document.documentElement.setAttribute('data-theme', 'dark');
+    isConnecting = true;
+    try {
+      console.log('Connecting to Gradio client...');
+      gradioClient = await Client.connect("rezaenayati/RezAi");
+      console.log('Connected to Gradio client successfully');
+      return gradioClient;
+    } catch (error) {
+      console.error('Failed to connect to Gradio client:', error);
+      showError('Failed to connect to chat service. Please try again later.');
+      return null;
+    } finally {
+      isConnecting = false;
     }
+  }
 
-    // Mobile menu toggle
+  // Send message to Gradio
+  async function sendToGradio(message) {
+    try {
+      const client = await initGradioClient();
+      if (!client) {
+        throw new Error('Client not connected');
+      }
+
+      console.log('Sending message to Gradio:', message);
+      const result = await client.predict("/chat", { message: message });
+      console.log('Received response from Gradio:', result);
+      
+      return result.data[0] || 'Sorry, I didn\'t receive a proper response.';
+    } catch (error) {
+      console.error('Error calling Gradio API:', error);
+      throw error;
+    }
+  }
+
+  // Add message to chat
+  function addMessage(content, isUser = false) {
+    const chatMessages = document.getElementById('chatMessages');
+    if (!chatMessages) return;
+    
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+    messageDiv.textContent = content;
+    
+    // Remove welcome message if it exists
+    const welcomeMsg = chatMessages.querySelector('.welcome-message');
+    if (welcomeMsg) {
+      welcomeMsg.remove();
+    }
+    
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  // Show typing indicator
+  function showTyping() {
+    if (isTyping) return;
+    
+    const chatMessages = document.getElementById('chatMessages');
+    if (!chatMessages) return;
+    
+    isTyping = true;
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'message typing';
+    typingDiv.id = 'typingIndicator';
+    typingDiv.innerHTML = `
+      <div class="typing-indicator">
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+      </div>
+    `;
+    
+    chatMessages.appendChild(typingDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  // Hide typing indicator
+  function hideTyping() {
+    const typingIndicator = document.getElementById('typingIndicator');
+    if (typingIndicator) {
+      typingIndicator.remove();
+    }
+    isTyping = false;
+  }
+
+  // Show error message
+  function showError(message) {
+    const chatMessages = document.getElementById('chatMessages');
+    if (!chatMessages) return;
+    
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-message';
+    errorDiv.textContent = message;
+    chatMessages.appendChild(errorDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  // Send message function
+  async function sendMessage() {
+    const chatInput = document.getElementById('chatInput');
+    const sendButton = document.getElementById('sendButton');
+    const sendText = document.getElementById('sendText');
+    const sendIcon = document.getElementById('sendIcon');
+    
+    if (!chatInput || !sendButton || !sendText || !sendIcon) return;
+    
+    const message = chatInput.value.trim();
+    if (!message || sendButton.disabled) return;
+
+    // Add user message
+    addMessage(message, true);
+    chatInput.value = '';
+    chatInput.style.height = 'auto';
+
+    // Disable input
+    sendButton.disabled = true;
+    sendText.textContent = 'Sending...';
+    sendIcon.textContent = '⏳';
+
+    // Show typing indicator
+    showTyping();
+
+    try {
+      const response = await sendToGradio(message);
+      hideTyping();
+      addMessage(response, false);
+    } catch (error) {
+      hideTyping();
+      console.error('Error:', error);
+      showError('Sorry, something went wrong. Please try again.');
+    } finally {
+      // Re-enable input
+      sendButton.disabled = false;
+      sendText.textContent = 'Send';
+      sendIcon.textContent = '🚀';
+      chatInput.focus();
+    }
+  }
+
+  // Make sendMessage available globally
+  window.sendMessage = sendMessage;
+
+  // Chat functionality initialization
+  function initializeChat() {
+    const chatInput = document.getElementById('chatInput');
+    if (!chatInput) return;
+
+    // Auto-resize textarea
+    chatInput.addEventListener('input', function() {
+      this.style.height = 'auto';
+      this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+    });
+
+    // Handle Enter key
+    chatInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    // Initialize connection
+    initGradioClient();
+  }
+
+  // Theme toggle functionality
+  function toggleTheme() {
+    const html = document.documentElement;
+    const currentTheme = html.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+  }
+
+  // Make toggleTheme available globally
+  window.toggleTheme = toggleTheme;
+
+  // Check for saved theme preference or prefer-color-scheme
+  const savedTheme = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  
+  if (savedTheme) {
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  } else if (prefersDark) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+
+  // Mobile menu toggle
+  function initializeMobileMenu() {
     const mobileMenuBtn = document.querySelector('.mobile-menu');
     const navLinks = document.querySelector('.nav-links');
     
-    mobileMenuBtn.addEventListener('click', () => {
-      navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-    });
+    if (mobileMenuBtn && navLinks) {
+      mobileMenuBtn.addEventListener('click', () => {
+        navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+      });
+    }
+  }
 
-    // Smooth scrolling for navigation links
+  // Smooth scrolling for navigation links
+  function initializeSmoothScrolling() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -1093,13 +1499,18 @@
           });
           // Close mobile menu if open
           if (window.innerWidth <= 768) {
-            navLinks.style.display = 'none';
+            const navLinks = document.querySelector('.nav-links');
+            if (navLinks) {
+              navLinks.style.display = 'none';
+            }
           }
         }
       });
     });
+  }
 
-    // Add wave animation to emoji
+  // Add wave animation to emoji
+  function addWaveAnimation() {
     const style = document.createElement('style');
     style.innerHTML = `
       .wave {
@@ -1113,32 +1524,22 @@
         10% { transform: rotate(14deg); }
         20% { transform: rotate(-8deg); }
         30% { transform: rotate(14deg); }
-        40% { transform: rotate(-4deg); }
+        40% { transform: rotate(-4px); }
         50% { transform: rotate(10deg); }
         60% { transform: rotate(0deg); }
         100% { transform: rotate(0deg); }
       }
     `;
     document.head.appendChild(style);
-  function hideLoading() {
-  const loading = document.getElementById('chat-loading');
-  const iframe = document.querySelector('.gradio-iframe');
-  
-  if (loading) loading.style.display = 'none';
-  if (iframe) iframe.style.display = 'block';
-}
-
-// Optional: Add fallback if iframe fails to load
-setTimeout(() => {
-  const loading = document.getElementById('chat-loading');
-  const iframe = document.querySelector('.gradio-iframe');
-  
-  if (loading && loading.style.display !== 'none') {
-    loading.innerHTML = '<div class="spinner"></div>Having trouble loading? <a href="https://huggingface.co/spaces/rezaenayati/RezAi" target="_blank">Open in new tab</a>';
   }
-}, 10000); // 10 second fallback
 
-    
-  </script>
+  // Initialize all functionality when DOM is loaded
+  document.addEventListener('DOMContentLoaded', function() {
+    initializeChat();
+    initializeMobileMenu();
+    initializeSmoothScrolling();
+    addWaveAnimation();
+  });
+</script>
 </body>
 </html>
