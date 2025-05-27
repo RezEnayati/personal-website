@@ -971,6 +971,7 @@
         </div>
       </div>
     </section>
+    
 <section id="chat">
   <div class="container">
     <h2 class="section-title">Chat with RezAi</h2>
@@ -994,7 +995,8 @@
             placeholder="Type your message here..."
             rows="1"
           ></textarea>
-          <button id="sendButton" class="send-button" onclick="sendMessage()">
+          <!-- REMOVED onclick - we'll add event listener in JavaScript instead -->
+          <button id="sendButton" class="send-button">
             <span id="sendText">Send</span>
             <span id="sendIcon">🚀</span>
           </button>
@@ -1275,271 +1277,305 @@
     </div>
   </footer>
 
-  <script type="module">
-  import { Client } from 'https://cdn.jsdelivr.net/npm/@gradio/client@1.0.0/+esm';
+  <script src="https://cdn.jsdelivr.net/npm/@gradio/client@1.0.0/dist/index.min.js"></script>
+  
+ script>
+  // Wait for everything to load
+  (function() {
+    let gradioClient = null;
+    let isConnecting = false;
+    let isTyping = false;
 
-  let gradioClient = null;
-  let isConnecting = false;
-  let isTyping = false;
-
-  // Initialize Gradio client
-  async function initGradioClient() {
-    if (gradioClient || isConnecting) return gradioClient;
-    
-    isConnecting = true;
-    try {
-      console.log('Connecting to Gradio client...');
-      gradioClient = await Client.connect("rezaenayati/RezAi");
-      console.log('Connected to Gradio client successfully');
-      return gradioClient;
-    } catch (error) {
-      console.error('Failed to connect to Gradio client:', error);
-      showError('Failed to connect to chat service. Please try again later.');
-      return null;
-    } finally {
-      isConnecting = false;
-    }
-  }
-
-  // Send message to Gradio
-  async function sendToGradio(message) {
-    try {
-      const client = await initGradioClient();
-      if (!client) {
-        throw new Error('Client not connected');
-      }
-
-      console.log('Sending message to Gradio:', message);
-      const result = await client.predict("/chat", { message: message });
-      console.log('Received response from Gradio:', result);
+    // Initialize Gradio client
+    async function initGradioClient() {
+      if (gradioClient || isConnecting) return gradioClient;
       
-      return result.data[0] || 'Sorry, I didn\'t receive a proper response.';
-    } catch (error) {
-      console.error('Error calling Gradio API:', error);
-      throw error;
+      isConnecting = true;
+      try {
+        console.log('Connecting to Gradio client...');
+        
+        // Check if gradio is available
+        if (!window.gradio || !window.gradio.Client) {
+          throw new Error('Gradio client not loaded');
+        }
+        
+        const { Client } = window.gradio;
+        gradioClient = await Client.connect("rezaenayati/RezAi");
+        console.log('Connected to Gradio client successfully');
+        return gradioClient;
+      } catch (error) {
+        console.error('Failed to connect to Gradio client:', error);
+        showError('Failed to connect to chat service. Please try again later.');
+        return null;
+      } finally {
+        isConnecting = false;
+      }
     }
-  }
 
-  // Add message to chat
-  function addMessage(content, isUser = false) {
-    const chatMessages = document.getElementById('chatMessages');
-    if (!chatMessages) return;
-    
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
-    messageDiv.textContent = content;
-    
-    // Remove welcome message if it exists
-    const welcomeMsg = chatMessages.querySelector('.welcome-message');
-    if (welcomeMsg) {
-      welcomeMsg.remove();
+    // Send message to Gradio
+    async function sendToGradio(message) {
+      try {
+        const client = await initGradioClient();
+        if (!client) {
+          throw new Error('Client not connected');
+        }
+
+        console.log('Sending message to Gradio:', message);
+        const result = await client.predict("/chat", { message: message });
+        console.log('Received response from Gradio:', result);
+        
+        return result.data[0] || 'Sorry, I didn\'t receive a proper response.';
+      } catch (error) {
+        console.error('Error calling Gradio API:', error);
+        throw error;
+      }
     }
-    
-    chatMessages.appendChild(messageDiv);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
 
-  // Show typing indicator
-  function showTyping() {
-    if (isTyping) return;
-    
-    const chatMessages = document.getElementById('chatMessages');
-    if (!chatMessages) return;
-    
-    isTyping = true;
-    const typingDiv = document.createElement('div');
-    typingDiv.className = 'message typing';
-    typingDiv.id = 'typingIndicator';
-    typingDiv.innerHTML = `
-      <div class="typing-indicator">
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
-      </div>
-    `;
-    
-    chatMessages.appendChild(typingDiv);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
-
-  // Hide typing indicator
-  function hideTyping() {
-    const typingIndicator = document.getElementById('typingIndicator');
-    if (typingIndicator) {
-      typingIndicator.remove();
+    // Add message to chat
+    function addMessage(content, isUser = false) {
+      const chatMessages = document.getElementById('chatMessages');
+      if (!chatMessages) {
+        console.error('Chat messages container not found');
+        return;
+      }
+      
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+      messageDiv.textContent = content;
+      
+      // Remove welcome message if it exists
+      const welcomeMsg = chatMessages.querySelector('.welcome-message');
+      if (welcomeMsg) {
+        welcomeMsg.remove();
+      }
+      
+      chatMessages.appendChild(messageDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
     }
-    isTyping = false;
-  }
-
-  // Show error message
-  function showError(message) {
-    const chatMessages = document.getElementById('chatMessages');
-    if (!chatMessages) return;
-    
-    const errorDiv = document.createElement('div');
-    errorDiv.className = 'error-message';
-    errorDiv.textContent = message;
-    chatMessages.appendChild(errorDiv);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
-
-  // Send message function
-  async function sendMessage() {
-    const chatInput = document.getElementById('chatInput');
-    const sendButton = document.getElementById('sendButton');
-    const sendText = document.getElementById('sendText');
-    const sendIcon = document.getElementById('sendIcon');
-    
-    if (!chatInput || !sendButton || !sendText || !sendIcon) return;
-    
-    const message = chatInput.value.trim();
-    if (!message || sendButton.disabled) return;
-
-    // Add user message
-    addMessage(message, true);
-    chatInput.value = '';
-    chatInput.style.height = 'auto';
-
-    // Disable input
-    sendButton.disabled = true;
-    sendText.textContent = 'Sending...';
-    sendIcon.textContent = '⏳';
 
     // Show typing indicator
-    showTyping();
-
-    try {
-      const response = await sendToGradio(message);
-      hideTyping();
-      addMessage(response, false);
-    } catch (error) {
-      hideTyping();
-      console.error('Error:', error);
-      showError('Sorry, something went wrong. Please try again.');
-    } finally {
-      // Re-enable input
-      sendButton.disabled = false;
-      sendText.textContent = 'Send';
-      sendIcon.textContent = '🚀';
-      chatInput.focus();
+    function showTyping() {
+      if (isTyping) return;
+      
+      const chatMessages = document.getElementById('chatMessages');
+      if (!chatMessages) return;
+      
+      isTyping = true;
+      const typingDiv = document.createElement('div');
+      typingDiv.className = 'message typing';
+      typingDiv.id = 'typingIndicator';
+      typingDiv.innerHTML = `
+        <div class="typing-indicator">
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+        </div>
+      `;
+      
+      chatMessages.appendChild(typingDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
     }
-  }
 
-  // Make sendMessage available globally
-  window.sendMessage = sendMessage;
-
-  // Chat functionality initialization
-  function initializeChat() {
-    const chatInput = document.getElementById('chatInput');
-    if (!chatInput) return;
-
-    // Auto-resize textarea
-    chatInput.addEventListener('input', function() {
-      this.style.height = 'auto';
-      this.style.height = Math.min(this.scrollHeight, 120) + 'px';
-    });
-
-    // Handle Enter key
-    chatInput.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        sendMessage();
+    // Hide typing indicator
+    function hideTyping() {
+      const typingIndicator = document.getElementById('typingIndicator');
+      if (typingIndicator) {
+        typingIndicator.remove();
       }
-    });
-
-    // Initialize connection
-    initGradioClient();
-  }
-
-  // Theme toggle functionality
-  function toggleTheme() {
-    const html = document.documentElement;
-    const currentTheme = html.getAttribute('data-theme');
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    
-    html.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-  }
-
-  // Make toggleTheme available globally
-  window.toggleTheme = toggleTheme;
-
-  // Check for saved theme preference or prefer-color-scheme
-  const savedTheme = localStorage.getItem('theme');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  
-  if (savedTheme) {
-    document.documentElement.setAttribute('data-theme', savedTheme);
-  } else if (prefersDark) {
-    document.documentElement.setAttribute('data-theme', 'dark');
-  }
-
-  // Mobile menu toggle
-  function initializeMobileMenu() {
-    const mobileMenuBtn = document.querySelector('.mobile-menu');
-    const navLinks = document.querySelector('.nav-links');
-    
-    if (mobileMenuBtn && navLinks) {
-      mobileMenuBtn.addEventListener('click', () => {
-        navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-      });
+      isTyping = false;
     }
-  }
 
-  // Smooth scrolling for navigation links
-  function initializeSmoothScrolling() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-          // Close mobile menu if open
-          if (window.innerWidth <= 768) {
-            const navLinks = document.querySelector('.nav-links');
-            if (navLinks) {
-              navLinks.style.display = 'none';
-            }
-          }
-        }
-      });
-    });
-  }
+    // Show error message
+    function showError(message) {
+      const chatMessages = document.getElementById('chatMessages');
+      if (!chatMessages) return;
+      
+      const errorDiv = document.createElement('div');
+      errorDiv.className = 'error-message';
+      errorDiv.textContent = message;
+      chatMessages.appendChild(errorDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
 
-  // Add wave animation to emoji
-  function addWaveAnimation() {
-    const style = document.createElement('style');
-    style.innerHTML = `
-      .wave {
-        display: inline-block;
-        animation: wave-animation 2.5s infinite;
-        transform-origin: 70% 70%;
+    // Send message function
+    async function sendMessage() {
+      console.log('sendMessage called');
+      
+      const chatInput = document.getElementById('chatInput');
+      const sendButton = document.getElementById('sendButton');
+      const sendText = document.getElementById('sendText');
+      const sendIcon = document.getElementById('sendIcon');
+      
+      if (!chatInput || !sendButton || !sendText || !sendIcon) {
+        console.error('Chat elements not found');
+        return;
       }
       
-      @keyframes wave-animation {
-        0% { transform: rotate(0deg); }
-        10% { transform: rotate(14deg); }
-        20% { transform: rotate(-8deg); }
-        30% { transform: rotate(14deg); }
-        40% { transform: rotate(-4px); }
-        50% { transform: rotate(10deg); }
-        60% { transform: rotate(0deg); }
-        100% { transform: rotate(0deg); }
+      const message = chatInput.value.trim();
+      console.log('Message:', message);
+      
+      if (!message || sendButton.disabled) {
+        return;
       }
-    `;
-    document.head.appendChild(style);
-  }
 
-  // Initialize all functionality when DOM is loaded
-  document.addEventListener('DOMContentLoaded', function() {
-    initializeChat();
-    initializeMobileMenu();
-    initializeSmoothScrolling();
-    addWaveAnimation();
-  });
+      // Add user message
+      addMessage(message, true);
+      chatInput.value = '';
+      chatInput.style.height = 'auto';
+
+      // Disable input
+      sendButton.disabled = true;
+      sendText.textContent = 'Sending...';
+      sendIcon.textContent = '⏳';
+
+      // Show typing indicator
+      showTyping();
+
+      try {
+        const response = await sendToGradio(message);
+        hideTyping();
+        addMessage(response, false);
+      } catch (error) {
+        hideTyping();
+        console.error('Error:', error);
+        showError('Sorry, something went wrong. Please try again.');
+      } finally {
+        // Re-enable input
+        sendButton.disabled = false;
+        sendText.textContent = 'Send';
+        sendIcon.textContent = '🚀';
+        chatInput.focus();
+      }
+    }
+
+    // Theme toggle functionality
+    function toggleTheme() {
+      const html = document.documentElement;
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    }
+
+    // Make theme toggle available globally
+    window.toggleTheme = toggleTheme;
+
+    // Initialize everything
+    function initialize() {
+      console.log('Initializing chat application...');
+      
+      // Initialize theme
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      } else if (prefersDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+
+      // Set up chat functionality
+      const chatInput = document.getElementById('chatInput');
+      const sendButton = document.getElementById('sendButton');
+      
+      if (!chatInput || !sendButton) {
+        console.error('Chat elements not found, retrying in 1 second...');
+        setTimeout(initialize, 1000);
+        return;
+      }
+
+      console.log('Chat elements found, setting up event listeners...');
+
+      // Auto-resize textarea
+      chatInput.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+      });
+
+      // Handle Enter key
+      chatInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          sendMessage();
+        }
+      });
+
+      // Handle button click
+      sendButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        console.log('Send button clicked via event listener');
+        sendMessage();
+      });
+
+      // Mobile menu
+      const mobileMenuBtn = document.querySelector('.mobile-menu');
+      const navLinks = document.querySelector('.nav-links');
+      
+      if (mobileMenuBtn && navLinks) {
+        mobileMenuBtn.addEventListener('click', () => {
+          navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+      }
+
+      // Smooth scrolling
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+            if (window.innerWidth <= 768) {
+              const navLinks = document.querySelector('.nav-links');
+              if (navLinks) {
+                navLinks.style.display = 'none';
+              }
+            }
+          }
+        });
+      });
+
+      // Add wave animation
+      const style = document.createElement('style');
+      style.innerHTML = `
+        .wave {
+          display: inline-block;
+          animation: wave-animation 2.5s infinite;
+          transform-origin: 70% 70%;
+        }
+        
+        @keyframes wave-animation {
+          0% { transform: rotate(0deg); }
+          10% { transform: rotate(14deg); }
+          20% { transform: rotate(-8deg); }
+          30% { transform: rotate(14deg); }
+          40% { transform: rotate(-4deg); }
+          50% { transform: rotate(10deg); }
+          60% { transform: rotate(0deg); }
+          100% { transform: rotate(0deg); }
+        }
+      `;
+      document.head.appendChild(style);
+
+      // Initialize Gradio connection
+      console.log('Starting Gradio connection...');
+      initGradioClient();
+      
+      console.log('Chat initialization complete!');
+    }
+
+    // Start initialization when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initialize);
+    } else {
+      // DOM is already loaded
+      setTimeout(initialize, 100);
+    }
+
+  })(); // End of IIFE (Immediately Invoked Function Expression)
 </script>
 </body>
 </html>
