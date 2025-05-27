@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   
-  <style>
+<style>
     :root {
       --primary: #050505;
       --secondary: #0A0A0A;
@@ -275,6 +275,167 @@
       letter-spacing: -0.03em;
     }
 
+    /* Chat Section Styles */
+    #chat {
+      padding: 4rem 0;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    }
+
+    .chat-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border-radius: 1.5rem;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+      transition: all 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .chat-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .chat-header {
+      padding: 2rem 2rem 1rem;
+      text-align: center;
+      background: var(--gradient);
+      color: white;
+      position: relative;
+    }
+
+    .chat-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .chat-title {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .chat-subtitle {
+      font-size: 1rem;
+      opacity: 0.9;
+      font-weight: 400;
+    }
+
+    .gradio-container {
+      position: relative;
+      width: 100%;
+      height: 600px;
+      background: var(--card-bg);
+    }
+
+    .gradio-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: transparent;
+    }
+
+    .chat-footer {
+      padding: 1.5rem 2rem;
+      text-align: center;
+      background: var(--card-bg);
+      border-top: 1px solid var(--border);
+    }
+
+    .chat-footer p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    .chat-footer a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .chat-footer a:hover {
+      color: var(--accent-light);
+    }
+
+    /* Loading animation for iframe */
+    .loading-spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid var(--border);
+      border-radius: 50%;
+      border-top-color: var(--accent);
+      animation: spin 1s ease-in-out infinite;
+      margin-right: 0.5rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Focus Areas Section */
+    .focus-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .focus-card {
+      background: var(--card-bg);
+      padding: 1.75rem;
+      border-radius: 1.25rem;
+      border: 1px solid var(--border);
+      text-align: center;
+      transition: all 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+      backdrop-filter: blur(12px);
+    }
+
+    .focus-card:hover {
+      transform: translateY(-10px);
+      border-color: transparent;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .focus-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+      filter: grayscale(0.15);
+    }
+
+    .focus-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .focus-card p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
     /* Skills Section */
     .skills-grid {
       display: grid;
@@ -512,50 +673,6 @@
       display: none;
     }
 
-    /* Focus Areas Section */
-    .focus-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      margin-top: 3rem;
-    }
-
-    .focus-card {
-      background: var(--card-bg);
-      padding: 1.75rem;
-      border-radius: 1.25rem;
-      border: 1px solid var(--border);
-      text-align: center;
-      transition: all 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
-      backdrop-filter: blur(12px);
-    }
-
-    .focus-card:hover {
-      transform: translateY(-10px);
-      border-color: transparent;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-    }
-
-    .focus-icon {
-      font-size: 2.5rem;
-      margin-bottom: 0.75rem;
-      filter: grayscale(0.15);
-    }
-
-    .focus-card h3 {
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
-      color: var(--text-primary);
-      font-weight: 600;
-      letter-spacing: -0.02em;
-    }
-
-    .focus-card p {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      line-height: 1.6;
-    }
-
     /* Media Queries */
     @media (max-width: 1024px) {
       .hero-content {
@@ -612,13 +729,35 @@
       .projects-grid {
         grid-template-columns: 1fr;
       }
+
+      /* Mobile chat responsiveness */
+      .chat-container {
+        margin: 0 1rem;
+        border-radius: 1rem;
+      }
+      
+      .chat-title {
+        font-size: 1.5rem;
+      }
+      
+      .gradio-container {
+        height: 500px;
+      }
+      
+      .chat-header {
+        padding: 1.5rem 1.5rem 1rem;
+      }
+      
+      .chat-footer {
+        padding: 1rem 1.5rem;
+      }
     }
 
     /* Smooth transitions */
     * {
       transition: color 0.3s, background-color 0.3s, border-color 0.3s;
     }
-  </style>
+</style>
 </head>
 <body>
   <header>
@@ -626,14 +765,15 @@
       <nav>
         <a href="#" class="logo">RE</a>
         <div class="nav-links">
-          <a href="#skills">Skills</a>
-          <a href="#projects">Projects</a>
-          <a href="#experience">Experience</a>
-          <a href="#connect">Connect</a>
-          <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
-            🌓
-          </button>
-        </div>
+  <a href="#chat">Chat</a>
+  <a href="#skills">Skills</a>
+  <a href="#projects">Projects</a>
+  <a href="#experience">Experience</a>
+  <a href="#connect">Connect</a>
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+    🌓
+  </button>
+</div>
         <button class="mobile-menu" aria-label="Menu">☰</button>
       </nav>
     </div>
@@ -660,6 +800,37 @@
         </div>
       </div>
     </section>
+
+    <section id="chat">
+  <div class="container">
+    <h2 class="section-title">Chat with RezAi</h2>
+    <div class="chat-container">
+      <div class="chat-header">
+        <h3 class="chat-title">🤖 RezAi Assistant</h3>
+        <p class="chat-subtitle">A fine-tuned model trained on my conversations - ask me anything!</p>
+      </div>
+      
+      <div class="gradio-container">
+        <div class="loading-spinner" id="chat-loading">
+          <div class="spinner"></div>
+          Loading chat interface...
+        </div>
+        <iframe 
+          class="gradio-iframe"
+          src="https://rezaenayati-rezai.hf.space"
+          frameborder="0"
+          allow="microphone; camera"
+          onload="hideLoading()"
+          style="display: none;">
+        </iframe>
+      </div>
+      
+      <div class="chat-footer">
+        <p>Powered by <a href="https://huggingface.co/spaces/rezaenayati/RezAi" target="_blank" rel="noopener noreferrer">Hugging Face Spaces</a></p>
+      </div>
+    </div>
+  </div>
+</section>
 
     <section id="focus">
       <div class="container">
@@ -1000,6 +1171,25 @@
       }
     `;
     document.head.appendChild(style);
+  function hideLoading() {
+  const loading = document.getElementById('chat-loading');
+  const iframe = document.querySelector('.gradio-iframe');
+  
+  if (loading) loading.style.display = 'none';
+  if (iframe) iframe.style.display = 'block';
+}
+
+// Optional: Add fallback if iframe fails to load
+setTimeout(() => {
+  const loading = document.getElementById('chat-loading');
+  const iframe = document.querySelector('.gradio-iframe');
+  
+  if (loading && loading.style.display !== 'none') {
+    loading.innerHTML = '<div class="spinner"></div>Having trouble loading? <a href="https://huggingface.co/spaces/rezaenayati/RezAi" target="_blank">Open in new tab</a>';
+  }
+}, 10000); // 10 second fallback
+
+    
   </script>
 </body>
 </html>
