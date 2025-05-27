@@ -278,14 +278,13 @@
     /* Chat Section Styles */
     #chat {
       padding: 4rem 0;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     }
 
-    .chat-container {
-      max-width: 1000px;
+    .chat-container-simple {
+      max-width: 900px;
       margin: 0 auto;
       background: var(--card-bg);
-      border-radius: 1.5rem;
+      border-radius: 1.25rem;
       border: 1px solid var(--border);
       overflow: hidden;
       backdrop-filter: blur(12px);
@@ -293,103 +292,64 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     }
 
-    .chat-container:hover {
+    .chat-container-simple:hover {
       transform: translateY(-5px);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
     }
 
-    .chat-header {
-      padding: 2rem 2rem 1rem;
+    .chat-description {
+      padding: 2rem;
       text-align: center;
-      background: var(--gradient);
-      color: white;
-      position: relative;
-    }
-
-    .chat-header::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    .chat-title {
-      font-size: 2rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      letter-spacing: -0.02em;
-    }
-
-    .chat-subtitle {
-      font-size: 1rem;
-      opacity: 0.9;
-      font-weight: 400;
-    }
-
-    .gradio-container {
-      position: relative;
-      width: 100%;
-      height: 600px;
+      border-bottom: 1px solid var(--border);
       background: var(--card-bg);
     }
 
-    .gradio-iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      background: transparent;
+    .chat-description h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+      font-weight: 600;
     }
 
-    .chat-footer {
-      padding: 1.5rem 2rem;
+    .chat-description p {
+      color: var(--text-secondary);
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .gradio-embed {
+      background: var(--primary);
+      position: relative;
+    }
+
+    .gradio-embed iframe {
+      display: block;
+      background: transparent;
+      border: none;
+    }
+
+    .chat-note {
+      padding: 1rem 2rem;
       text-align: center;
       background: var(--card-bg);
       border-top: 1px solid var(--border);
     }
 
-    .chat-footer p {
+    .chat-note p {
       color: var(--text-secondary);
       font-size: 0.9rem;
       margin: 0;
     }
 
-    .chat-footer a {
+    .chat-note a {
       color: var(--accent);
       text-decoration: none;
       font-weight: 500;
       transition: color 0.3s;
     }
 
-    .chat-footer a:hover {
+    .chat-note a:hover {
       color: var(--accent-light);
-    }
-
-    /* Loading animation for iframe */
-    .loading-spinner {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: var(--text-secondary);
-      font-size: 1.1rem;
-    }
-
-    .spinner {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      border: 3px solid var(--border);
-      border-radius: 50%;
-      border-top-color: var(--accent);
-      animation: spin 1s ease-in-out infinite;
-      margin-right: 0.5rem;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
     }
 
     /* Focus Areas Section */
@@ -731,24 +691,24 @@
       }
 
       /* Mobile chat responsiveness */
-      .chat-container {
+      .chat-container-simple {
         margin: 0 1rem;
         border-radius: 1rem;
       }
       
-      .chat-title {
-        font-size: 1.5rem;
+      .chat-description {
+        padding: 1.5rem;
       }
       
-      .gradio-container {
+      .chat-description h3 {
+        font-size: 1.25rem;
+      }
+      
+      .gradio-embed iframe {
         height: 500px;
       }
       
-      .chat-header {
-        padding: 1.5rem 1.5rem 1rem;
-      }
-      
-      .chat-footer {
+      .chat-note {
         padding: 1rem 1.5rem;
       }
     }
@@ -801,37 +761,26 @@
       </div>
     </section>
 
-    <section id="chat">
+   <section id="chat">
   <div class="container">
     <h2 class="section-title">Chat with RezAi</h2>
-    <div class="chat-container">
-      <div class="chat-header">
-        <h3 class="chat-title">🤖 RezAi Assistant</h3>
-        <p class="chat-subtitle">A fine-tuned model trained on my conversations - ask me anything!</p>
-      </div>
-      
-      <div class="gradio-container">
-        <div class="loading-spinner" id="chat-loading">
-          <div class="spinner"></div>
-          Loading chat interface...
+    <div class="chat-cta">
+      <div class="chat-preview">
+        <h3>🤖 RezAi Assistant</h3>
+        <p>A fine-tuned model trained on my conversations to replicate my texting style across English, Farsi, and Finglish.</p>
+        <div class="chat-features">
+          <span class="feature">💬 Natural Conversations</span>
+          <span class="feature">🧠 Personal Training Data</span>
+          <span class="feature">🌍 Multi-language Support</span>
         </div>
-        <iframe 
-          class="gradio-iframe"
-          src="https://rezaenayati-rezai.hf.space"
-          frameborder="0"
-          allow="microphone; camera"
-          onload="hideLoading()"
-          style="display: none;">
-        </iframe>
-      </div>
-      
-      <div class="chat-footer">
-        <p>Powered by <a href="https://huggingface.co/spaces/rezaenayati/RezAi" target="_blank" rel="noopener noreferrer">Hugging Face Spaces</a></p>
+        <a href="https://huggingface.co/spaces/rezaenayati/RezAi" target="_blank" class="btn btn-primary">
+          Start Chatting →
+        </a>
       </div>
     </div>
   </div>
 </section>
-
+    
     <section id="focus">
       <div class="container">
         <h2 class="section-title">AI/ML Focus Areas</h2>
