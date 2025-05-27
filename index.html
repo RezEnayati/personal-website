@@ -1279,9 +1279,10 @@
   
  <!-- Replace your entire script section with this much simpler version -->
 <!-- Replace your entire script section with this simple version -->
+<!-- Alternative approach using Skypack CDN -->
 <script type="module">
-  // Import the Gradio client directly
-  import { Client } from "https://cdn.jsdelivr.net/npm/@gradio/client@1.0.0/+esm";
+  // Import the Gradio client using Skypack (ES module optimized CDN)
+  import { Client } from "https://cdn.skypack.dev/@gradio/client@1.0.0";
 
   let gradioClient = null;
   let isTyping = false;
