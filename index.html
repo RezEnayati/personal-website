@@ -26,6 +26,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   
+  <!-- Gradio Web Components -->
+  <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.44.0/gradio.js"></script>
+  
   <style>
     :root {
       --primary: #050505;
@@ -556,6 +559,47 @@
       line-height: 1.6;
     }
 
+    /* Chat Section Styling */
+    .chat-container {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .chat-container:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    }
+
+    .chat-description {
+      text-align: center;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      font-size: 1.125rem;
+      line-height: 1.6;
+    }
+
+    /* Custom Gradio Styling */
+    gradio-app {
+      display: block;
+      width: 100%;
+      height: 600px;
+      border: none;
+      border-radius: inherit;
+    }
+
+    /* Override Gradio styles */
+    gradio-app::part(container) {
+      background: transparent !important;
+      border: none !important;
+      border-radius: 0 !important;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    }
+
     /* Media Queries */
     @media (max-width: 1024px) {
       .hero-content {
@@ -612,6 +656,27 @@
       .projects-grid {
         grid-template-columns: 1fr;
       }
+
+      .chat-container {
+        margin: 0 -1rem;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+      }
+
+      gradio-app {
+        height: 500px;
+      }
+    }
+
+    /* Dark mode specific adjustments */
+    [data-theme="dark"] .chat-container {
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Light mode specific adjustments */
+    [data-theme="light"] .chat-container {
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
     }
 
     /* Smooth transitions */
@@ -629,6 +694,7 @@
           <a href="#skills">Skills</a>
           <a href="#projects">Projects</a>
           <a href="#experience">Experience</a>
+          <a href="#chat">Chat</a>
           <a href="#connect">Connect</a>
           <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
             🌓
@@ -657,6 +723,23 @@
               <a href="resume.pdf" class="btn btn-secondary" download="Reza_Enayati_Resume.pdf">Download Resume</a>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="chat">
+      <div class="container">
+        <h2 class="section-title">Chat with RezAi</h2>
+        <p class="chat-description">
+          A fine-tuned LLM trained on my chat history to replicate my texting style across English, Farsi, and Finglish.
+        </p>
+        <div class="chat-container">
+          <gradio-app 
+            src="https://huggingface.co/spaces/rezaenayati/RezAi"
+            theme_mode="system"
+            initial_height="600px"
+            eager="true">
+          </gradio-app>
         </div>
       </div>
     </section>
@@ -742,52 +825,6 @@
           <div class="project-card">
             <div class="project-content">
               <h3>
-                <a href="https://github.com/RezEnayati/word2Vec" target="_blank">
-                  Word2Vec from Scratch (SGNS) 
-                </a>
-              </h3>
-              <p>A complete Word2Vec implementation using only NumPy that creates meaningful word embeddings capturing semantic relationships. Uses Skip-gram architecture with negative sampling. The trained model performs word analogies like "king is to man as woman is to queen" by learning consistent vector relationships between words.</p>
-            </div>
-          </div>
-
-          <div class="project-card">
-            <div class="project-content">
-              <h3>
-                <a href="#" onclick="return false;" style="cursor: default;">
-                  RezAi (Coming Soon)
-                </a>
-              </h3>
-              <p>
-                A fine-tuned LLM trained on my own chat history to replicate my texting style across English, Farsi, and Finglish, built with Hugging Face, DPO, and personal feedback loops.
-              </p>
-            </div>
-          </div>
-
-          <div class="project-card">
-            <div class="project-content">
-              <h3>
-                <a href="https://huggingface.co/spaces/rezaenayati/Live_Digit_Recognition_Using_CNN" target="_blank">
-                  Live Digit Recognition (CNN + Gradio)
-                </a>
-              </h3>
-              <p>An interactive digit recognition tool built using TensorFlow and Convolutional Neural Networks. Users can draw digits on a live sketchpad via Gradio, and the model predicts them in real-time. Includes preprocessing, augmentation, and custom threshold logic for better real-world inference.</p>
-            </div>
-          </div>
-
-          <div class="project-card">
-            <div class="project-content">
-              <h3>
-                <a href="https://github.com/RezEnayati/PizzaGuysFoodCost" target="_blank">
-                  Pizza Guys Food Cost Calculator
-                </a>
-              </h3>
-              <p>A SwiftUI app that calculates food cost for Pizza Guys franchises. It gives a breakdown of prices in real time using a custom pricing engine that automatically converts units and costs to the desired amounts. It also follows the MVVM architecture.</p>
-            </div>
-          </div>
-
-          <div class="project-card">
-            <div class="project-content">
-              <h3>
                 <a href="https://github.com/RezEnayati/HotProspects" target="_blank">
                   HotProspects
                 </a>
@@ -808,76 +845,77 @@
         </div>
       </div>
     </section>
-<section id="books">
-  <div class="container">
-    <h2 class="section-title">Favorite Books</h2>
-    <div class="books-grid">
 
-      <div class="book-card">
-        <h3 class="book-title">
-          <a href="https://www.goodreads.com/book/show/43565360-artificial-intelligence" target="_blank" rel="noopener noreferrer">
-            Artificial Intelligence: A Guide For Thinking Humans
-          </a>
-        </h3>
-        <p class="book-author">by Melanie Mitchell</p>
-      </div>
+    <section id="books">
+      <div class="container">
+        <h2 class="section-title">Favorite Books</h2>
+        <div class="books-grid">
 
-      <div class="book-card">
-        <h3 class="book-title">
-          <a href="https://www.goodreads.com/book/show/44882.Code" target="_blank" rel="noopener noreferrer">
-            Code: The Hidden Language of Computer Hardware and Software
-          </a>
-        </h3>
-        <p class="book-author">by Charles Petzold</p>
-      </div>
+          <div class="book-card">
+            <h3 class="book-title">
+              <a href="https://www.goodreads.com/book/show/43565360-artificial-intelligence" target="_blank" rel="noopener noreferrer">
+                Artificial Intelligence: A Guide For Thinking Humans
+              </a>
+            </h3>
+            <p class="book-author">by Melanie Mitchell</p>
+          </div>
 
-      <div class="book-card">
-        <h3 class="book-title">
-          <a href="https://www.goodreads.com/book/show/24113.G_del_Escher_Bach" target="_blank" rel="noopener noreferrer">
-            Gödel, Escher, Bach: an Eternal Golden Braid
-          </a>
-        </h3>
-        <p class="book-author">by Douglas Hofstadter</p>
-      </div>
+          <div class="book-card">
+            <h3 class="book-title">
+              <a href="https://www.goodreads.com/book/show/44882.Code" target="_blank" rel="noopener noreferrer">
+                Code: The Hidden Language of Computer Hardware and Software
+              </a>
+            </h3>
+            <p class="book-author">by Charles Petzold</p>
+          </div>
 
-      <div class="book-card">
-        <h3 class="book-title">
-          <a href="https://www.goodreads.com/book/show/7108725-start-with-why" target="_blank" rel="noopener noreferrer">
-            Start with Why: How Great Leaders Inspire Everyone to Take Action
-          </a>
-        </h3>
-        <p class="book-author">by Simon Sinek</p>
-      </div>
+          <div class="book-card">
+            <h3 class="book-title">
+              <a href="https://www.goodreads.com/book/show/24113.G_del_Escher_Bach" target="_blank" rel="noopener noreferrer">
+                Gödel, Escher, Bach: an Eternal Golden Braid
+              </a>
+            </h3>
+            <p class="book-author">by Douglas Hofstadter</p>
+          </div>
 
-      <div class="book-card">
-        <h3 class="book-title">
-          <a href="https://www.goodreads.com/book/show/55539565-think-again" target="_blank" rel="noopener noreferrer">
-            Think Again: The Power of Knowing What You Don't Know
-          </a>
-        </h3>
-        <p class="book-author">by Adam Grant</p>
-      </div>
+          <div class="book-card">
+            <h3 class="book-title">
+              <a href="https://www.goodreads.com/book/show/7108725-start-with-why" target="_blank" rel="noopener noreferrer">
+                Start with Why: How Great Leaders Inspire Everyone to Take Action
+              </a>
+            </h3>
+            <p class="book-author">by Simon Sinek</p>
+          </div>
 
-      <div class="book-card">
-        <h3 class="book-title">
-          <a href="https://www.goodreads.com/book/show/18050143-zero-to-one" target="_blank" rel="noopener noreferrer">
-            Zero to One: Notes on Startups, or How to Build the Future
-          </a>
-        </h3>
-        <p class="book-author">by Peter Thiel</p>
-      </div>
+          <div class="book-card">
+            <h3 class="book-title">
+              <a href="https://www.goodreads.com/book/show/55539565-think-again" target="_blank" rel="noopener noreferrer">
+                Think Again: The Power of Knowing What You Don't Know
+              </a>
+            </h3>
+            <p class="book-author">by Adam Grant</p>
+          </div>
 
-      <div class="book-card">
-        <h3 class="book-title">
-          <a href="https://www.goodreads.com/book/show/195888801-why-machines-learn" target="_blank" rel="noopener noreferrer">
-            Why Machines Learn: The Elegant Math Behind Modern AI
-          </a>
-        </h3>
-        <p class="book-author">by Anil Ananthaswamy</p>
+          <div class="book-card">
+            <h3 class="book-title">
+              <a href="https://www.goodreads.com/book/show/18050143-zero-to-one" target="_blank" rel="noopener noreferrer">
+                Zero to One: Notes on Startups, or How to Build the Future
+              </a>
+            </h3>
+            <p class="book-author">by Peter Thiel</p>
+          </div>
+
+          <div class="book-card">
+            <h3 class="book-title">
+              <a href="https://www.goodreads.com/book/show/195888801-why-machines-learn" target="_blank" rel="noopener noreferrer">
+                Why Machines Learn: The Elegant Math Behind Modern AI
+              </a>
+            </h3>
+            <p class="book-author">by Anil Ananthaswamy</p>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
     <section id="papers">
       <div class="container">
@@ -993,7 +1031,7 @@
         10% { transform: rotate(14deg); }
         20% { transform: rotate(-8deg); }
         30% { transform: rotate(14deg); }
-        40% { transform: rotate(-4deg); }
+        40% { transform: rotate(-4px); }
         50% { transform: rotate(10deg); }
         60% { transform: rotate(0deg); }
         100% { transform: rotate(0deg); }
