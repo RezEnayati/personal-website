@@ -24,1563 +24,214 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   
-<style>
-    :root {
-      --primary: #050505;
-      --secondary: #0A0A0A;
-      --accent: #4B5563;
-      --accent-light: #6B7280;
-      --text-primary: #FFFFFF;
-      --text-secondary: #8F8F8F;
-      --border: #1F1F1F;
-      --card-bg: rgba(15, 15, 15, 0.8);
-      --overlay: rgba(5, 5, 5, 0.9);
-      --gradient: linear-gradient(135deg, #4B5563 0%, #374151 100%);
-    }
-
-    [data-theme="light"] {
-      --primary: #FFFFFF;
-      --secondary: #FAFAFA;
-      --accent: #374151;
-      --accent-light: #4B5563;
-      --text-primary: #0F0F0F;
-      --text-secondary: #6B6B6B;
-      --border: #EBEBEB;
-      --card-bg: rgba(255, 255, 255, 0.8);
-      --overlay: rgba(255, 255, 255, 0.9);
-      --gradient: linear-gradient(135deg, #374151 0%, #1F2937 100%);
-    }
-
-    [data-theme="light"] .github-chart {
-    filter: invert(1) hue-rotate(180deg);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: var(--primary);
-      color: var(--text-primary);
-      line-height: 1.7;
-      transition: background-color 0.3s, color 0.3s;
-      font-weight: 400;
-      letter-spacing: -0.01em;
-    }
-
-    .book-title a {
-    color: inherit;              
-    text-decoration: none;       
-    transition: color 0.3s;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-
-    /* Header */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background: var(--overlay);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      z-index: 1000;
-      border-bottom: 1px solid var(--border);
-    }
-
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.25rem 0;
-    }
-
-    .logo {
-      font-weight: 700;
-      font-size: 1.5rem;
-      color: var(--text-primary);
-      text-decoration: none;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-    }
-
-    .nav-links a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-
-    .nav-links a:hover {
-      color: var(--accent);
-    }
-
-    .theme-toggle {
-      background: transparent;
-      border: none;
-      color: var(--text-secondary);
-      cursor: pointer;
-      padding: 0.5rem;
-      font-size: 1.1rem;
-      transition: color 0.3s;
-      opacity: 0.8;
-    }
-
-    .theme-toggle:hover {
-      color: var(--text-primary);
-      opacity: 1;
-    }
-
-    /* Hero Section */
-    .hero {
-      min-height: 70vh;
-      display: flex;
-      align-items: center;
-      padding: 6rem 0 2rem;
-    }
-
-    .hero-content {
-      display: grid;
-      grid-template-columns: 1fr 1.5fr;
-      gap: 4rem;
-      align-items: center;
-    }
-
-    .hero-image {
-      display: flex;
-      justify-content: center;
-    }
-
-    .profile-img {
-      width: 320px;
-      height: 320px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid var(--accent);
-      box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
-      position: relative;
-    }
-
-    .hero-text h1 {
-      font-size: 4rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      line-height: 1;
-      letter-spacing: -0.04em;
-    }
-
-    .hero-text h2 {
-      font-size: 1.5rem;
-      color: var(--text-secondary);
-      margin-bottom: 2rem;
-      font-weight: 400;
-      letter-spacing: -0.02em;
-    }
-
-    .hero-text p {
-      font-size: 1.125rem;
-      color: var(--text-secondary);
-      margin-bottom: 3rem;
-      max-width: 600px;
-      line-height: 1.7;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 1rem;
-    }
-
-    .btn {
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.625rem;
-      font-weight: 500;
-      text-decoration: none;
-      transition: all 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67);
-      cursor: pointer;
-      border: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.95rem;
-      letter-spacing: -0.01em;
-    }
-
-    .btn-primary {
-      background: var(--gradient);
-      color: white;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn-primary::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.5s ease;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
-    }
-
-    .btn-primary:hover::before {
-      left: 100%;
-    }
-
-    .btn-secondary {
-      background-color: transparent;
-      color: var(--text-primary);
-      border: 1px solid var(--border);
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    /* Sections */
-    section {
-      padding: 3rem 0;
-    }
-
-    .section-title {
-      font-size: 2rem;
-      font-weight: 600;
-      margin-bottom: 3rem;
-      text-align: center;
-      color: var(--text-primary);
-      letter-spacing: -0.03em;
-    }
-
-    /* Chat Section Styles */
-    #chat {
-      padding: 4rem 0;
-    }
-
-    .chat-container-simple {
-      max-width: 900px;
-      margin: 0 auto;
-      background: var(--card-bg);
-      border-radius: 1.25rem;
-      border: 1px solid var(--border);
-      overflow: hidden;
-      backdrop-filter: blur(12px);
-      transition: all 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    }
-
-    .chat-container-simple:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-    }
-
-    .chat-description {
-      padding: 2rem;
-      text-align: center;
-      border-bottom: 1px solid var(--border);
-      background: var(--card-bg);
-    }
-
-    .chat-description h3 {
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-      color: var(--text-primary);
-      font-weight: 600;
-    }
-
-    .chat-description p {
-      color: var(--text-secondary);
-      margin: 0;
-      font-size: 1rem;
-    }
-
-    .gradio-embed {
-      background: var(--primary);
-      position: relative;
-    }
-
-    .gradio-embed iframe {
-      display: block;
-      background: transparent;
-      border: none;
-    }
-
-    .chat-note {
-      padding: 1rem 2rem;
-      text-align: center;
-      background: var(--card-bg);
-      border-top: 1px solid var(--border);
-    }
-
-    .chat-note p {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      margin: 0;
-    }
-
-    .chat-note a {
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-
-    .chat-note a:hover {
-      color: var(--accent-light);
-    }
-
-    /* Focus Areas Section */
-    .focus-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      margin-top: 3rem;
-    }
-
-    .focus-card {
-      background: var(--card-bg);
-      padding: 1.75rem;
-      border-radius: 1.25rem;
-      border: 1px solid var(--border);
-      text-align: center;
-      transition: all 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
-      backdrop-filter: blur(12px);
-    }
-
-    .focus-card:hover {
-      transform: translateY(-10px);
-      border-color: transparent;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-    }
-
-    .focus-icon {
-      font-size: 2.5rem;
-      margin-bottom: 0.75rem;
-      filter: grayscale(0.15);
-    }
-
-    .focus-card h3 {
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
-      color: var(--text-primary);
-      font-weight: 600;
-      letter-spacing: -0.02em;
-    }
-
-    .focus-card p {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      line-height: 1.6;
-    }
-
-    /* Skills Section */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .skill-card {
-      background: var(--card-bg);
-      padding: 2rem;
-      border-radius: 1.25rem;
-      border: 1px solid var(--border);
-      transition: all 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
-      backdrop-filter: blur(12px);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .skill-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: var(--gradient);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-
-    .skill-card:hover {
-      transform: translateY(-10px);
-      border-color: transparent;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-    }
-
-    .skill-card:hover::before {
-      opacity: 1;
-    }
-
-    .skill-card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      color: var(--text-primary);
-    }
-
-    .skill-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .tag {
-      background: rgba(75, 85, 99, 0.08);
-      color: var(--accent-light);
-      padding: 0.3rem 0.625rem;
-      border-radius: 0.375rem;
-      font-size: 0.8rem;
-      border: none;
-      transition: all 0.2s ease;
-      text-decoration: none;
-      display: inline-block;
-      letter-spacing: 0.01em;
-    }
-
-    .tag:hover {
-      background: rgba(75, 85, 99, 0.15);
-      transform: translateY(-1px);
-    }
-
-    a.tag {
-      color: var(--accent-light);
-    }
-
-    a.tag:hover {
-      color: var(--accent-light);
-    }
-
-    /* Projects Section */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 2rem;
-    }
-
-    .project-card {
-      background: var(--card-bg);
-      border-radius: 1.25rem;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      transition: all 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
-      backdrop-filter: blur(12px);
-    }
-
-    .project-card:hover {
-      transform: translateY(-10px);
-      border-color: transparent;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-    }
-
-    .project-content {
-      padding: 2rem;
-    }
-
-    .project-content h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .project-content h3 a {
-      color: var(--text-primary);
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-
-    .project-content h3 a:hover {
-      color: var(--accent);
-    }
-
-    .project-content p {
-      color: var(--text-secondary);
-      margin-bottom: 1.5rem;
-    }
-
-    /* Experience Section */
-    .experience-card {
-      background: var(--card-bg);
-      padding: 2rem;
-      border-radius: 1rem;
-      border: 1px solid var(--border);
-      margin-bottom: 1.5rem;
-    }
-
-    .experience-card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-      color: var(--text-primary);
-    }
-
-    .experience-card p {
-      color: var(--text-secondary);
-    }
-
-    /* Books Section */
-    .books-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .book-card {
-      background: var(--card-bg);
-      padding: 1.5rem;
-      border-radius: 0.75rem;
-      border: 1px solid var(--border);
-      transition: transform 0.3s, border-color 0.3s;
-    }
-
-    .book-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--accent);
-    }
-
-    .book-title {
-      font-size: 1.125rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      color: var(--text-primary);
-    }
-
-    .book-author {
-      color: var(--text-secondary);
-      font-size: 0.875rem;
-    }
-
-    /* Papers Section */
-    .paper-card {
-      background: var(--card-bg);
-      padding: 1.5rem;
-      border-radius: 0.75rem;
-      border: 1px solid var(--border);
-      margin-bottom: 1rem;
-      transition: transform 0.3s, border-color 0.3s;
-    }
-
-    .paper-card:hover {
-      transform: translateY(-2px);
-      border-color: var(--accent);
-    }
-
-    .paper-card a {
-      color: var(--text-primary);
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.3s;
-    }
-
-    .paper-card a:hover {
-      color: var(--accent);
-    }
-
-    .paper-card p {
-      color: var(--text-secondary);
-      margin-top: 0.5rem;
-    }
-
-
-    .playlist-container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .spotify-embed {
-      border-radius: 1rem;
-      overflow: hidden;
-    }
-
-
-    .connect-links {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-    }
-
-
-    footer {
-      text-align: center;
-      padding: 3rem 0;
-      color: var(--text-secondary);
-      border-top: 1px solid var(--border);
-    }
-
-    /* Mobile Navigation */
-    .mobile-menu {
-      display: none;
-    }
-
-    /* Media Queries */
-    @media (max-width: 1024px) {
-      .hero-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-
-      .hero-text p {
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .hero-buttons {
-        justify-content: center;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        padding: 0 1rem;
-      }
-
-      .nav-links {
-        display: none;
-      }
-
-      .mobile-menu {
-        display: block;
-        background: transparent;
-        border: none;
-        color: var(--text-primary);
-        font-size: 1.5rem;
-        cursor: pointer;
-      }
-
-      .hero-text h1 {
-        font-size: 2.5rem;
-      }
-
-      .hero-text h2 {
-        font-size: 1.5rem;
-      }
-
-      .profile-img {
-        width: 250px;
-        height: 250px;
-      }
-
-      .section-title {
-        font-size: 2rem;
-      }
-
-      .skills-grid,
-      .projects-grid {
-        grid-template-columns: 1fr;
-      }
-
-      /* Mobile chat responsiveness */
-      .chat-container-simple {
-        margin: 0 1rem;
-        border-radius: 1rem;
-      }
-      
-      .chat-description {
-        padding: 1.5rem;
-      }
-      
-      .chat-description h3 {
-        font-size: 1.25rem;
-      }
-      
-      .gradio-embed iframe {
-        height: 500px;
-      }
-      
-      .chat-note {
-        padding: 1rem 1.5rem;
-      }
-    }
-
-    /* Smooth transitions */
-    * {
-      transition: color 0.3s, background-color 0.3s, border-color 0.3s;
-    }
-
-  /* Enhanced Chat Container */
-.chat-container-custom {
-  max-width: 900px;
-  margin: 0 auto;
-  background: var(--card-bg);
-  border-radius: 1.25rem;
-  border: 1px solid var(--border);
-  overflow: hidden;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  transition: all 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
-}
-
-.chat-container-custom:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-}
-
-.chat-header {
-  padding: 2rem;
-  text-align: center;
-  border-bottom: 1px solid var(--border);
-  background: var(--card-bg);
-}
-
-.chat-header h3 {
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
-.chat-header p {
-  color: var(--text-secondary);
-  margin: 0;
-  font-size: 1rem;
-}
-
-/* Chat Messages Area */
-.chat-messages {
-  height: 400px;
-  overflow-y: auto;
-  padding: 1.5rem;
-  background: var(--primary);
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.message {
-  max-width: 80%;
-  padding: 1rem 1.25rem;
-  border-radius: 1rem;
-  word-wrap: break-word;
-  animation: fadeIn 0.3s ease-in;
-}
-
-.message.user {
-  align-self: flex-end;
-  background: var(--gradient);
-  color: white;
-  border-bottom-right-radius: 0.5rem;
-}
-
-.message.bot {
-  align-self: flex-start;
-  background: var(--card-bg);
-  color: var(--text-primary);
-  border: 1px solid var(--border);
-  border-bottom-left-radius: 0.5rem;
-}
-
-.message.typing {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  padding: 1rem 1.25rem;
-  align-self: flex-start;
-  border-bottom-left-radius: 0.5rem;
-}
-
-/* Typing indicator */
-.typing-indicator {
-  display: flex;
-  gap: 0.25rem;
-  align-items: center;
-}
-
-.typing-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--accent);
-  animation: typing 1.4s infinite ease-in-out;
-}
-
-.typing-dot:nth-child(1) { animation-delay: -0.32s; }
-.typing-dot:nth-child(2) { animation-delay: -0.16s; }
-
-@keyframes typing {
-  0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
-  40% { transform: scale(1); opacity: 1; }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Chat Input Area */
-.chat-input-container {
-  padding: 1.5rem;
-  background: var(--card-bg);
-  border-top: 1px solid var(--border);
-}
-
-.chat-input-wrapper {
-  display: flex;
-  gap: 0.75rem;
-  align-items: flex-end;
-}
-
-.chat-input {
-  flex: 1;
-  background: var(--primary);
-  border: 1px solid var(--border);
-  border-radius: 1rem;
-  padding: 0.875rem 1.125rem;
-  color: var(--text-primary);
-  font-family: inherit;
-  font-size: 0.95rem;
-  resize: none;
-  min-height: 44px;
-  max-height: 120px;
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.chat-input:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(75, 85, 99, 0.1);
-}
-
-.chat-input::placeholder {
-  color: var(--text-secondary);
-}
-
-.send-button {
-  background: var(--gradient);
-  border: none;
-  border-radius: 1rem;
-  padding: 0.875rem 1.125rem;
-  color: white;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  min-width: 80px;
-  justify-content: center;
-}
-
-.send-button:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
-}
-
-.send-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-}
-
-/* Welcome message */
-.welcome-message {
-  text-align: center;
-  color: var(--text-secondary);
-  font-style: italic;
-  padding: 2rem;
-}
-
-/* Error message */
-.error-message {
-  background: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  color: #ef4444;
-  padding: 1rem;
-  border-radius: 0.75rem;
-  margin: 1rem;
-  text-align: center;
-}
-
-/* Scrollbar styling */
-.chat-messages::-webkit-scrollbar {
-  width: 6px;
-}
-
-.chat-messages::-webkit-scrollbar-track {
-  background: var(--border);
-  border-radius: 3px;
-}
-
-.chat-messages::-webkit-scrollbar-thumb {
-  background: var(--accent);
-  border-radius: 3px;
-}
-
-.chat-messages::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-light);
-}
-</style>
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <div class="container">
-      <nav>
-        <a href="#" class="logo">RE</a>
-        <div class="nav-links">
-  <a href="#chat">Chat</a>
-  <a href="#skills">Skills</a>
-  <a href="#projects">Projects</a>
-  <a href="#experience">Experience</a>
-  <a href="#connect">Connect</a>
-  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
-    🌓
-  </button>
-</div>
-        <button class="mobile-menu" aria-label="Menu">☰</button>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <section class="hero" id="home">
-      <div class="container">
-        <div class="hero-content">
-          <div class="hero-image">
-            <img src="profile.jpg" alt="Reza Enayati" class="profile-img" />
-          </div>
-          <div class="hero-text">
-            <h1>Hi, I'm Reza! <span class="wave">👋</span></h1>
-            <h2>AI/ML, iOS</h2>
-            <p>
-              I build systems that learn, think, and sometimes surprise
-            </p>
-            <div class="hero-buttons">
-              <a href="mailto:r3zsoft@gmail.com" class="btn btn-primary">Contact Me</a>
-              <a href="resume.pdf" class="btn btn-secondary" download="Reza_Enayati_Resume.pdf">Download Resume</a>
-              <a href="https://calendly.com/rezae/30min" target="_blank" class="btn btn-primary">Book a Zoom Call</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-<section id="chat">
-  <div class="container">
-    <h2 class="section-title">Chat with RezAi</h2>
-    <div class="chat-container-custom">
-      <div class="chat-messages" id="chatMessages">
-        <div class="welcome-message">
-          👋 Hi! I'm RezAi. 
-        </div>
+  <!-- Loading Screen -->
+  <div id="loadingScreen" class="loading-screen">
+    <div class="loading-content">
+      <div class="robot-container">
+        <span class="robot"></span>
       </div>
       
-      <div class="chat-input-container">
-        <div class="chat-input-wrapper">
-          <textarea 
-            id="chatInput" 
-            class="chat-input" 
-            placeholder="Type your message here..."
-            rows="1"
-          ></textarea>
-          <!-- Added onclick back for redundancy -->
-          <button id="sendButton" class="send-button" onclick="sendMessage()">
-            <span id="sendText">Send</span>
-            <span id="sendIcon">🚀</span>
-          </button>
+      <div class="typing-container">
+        <div class="typing-text" id="typingText">
+          <span class="cursor"></span>
         </div>
       </div>
     </div>
   </div>
-</section>
-    
-    <section id="focus">
+
+  <!-- Main Content -->
+  <div id="mainContent" class="main-content">
+    <header>
       <div class="container">
-        <h2 class="section-title">AI/ML Focus Areas</h2>
-        <div class="focus-grid">
-          <div class="focus-card">
-            <div class="focus-icon">🧠</div>
-            <h3>Neural Networks</h3>
-            <p>Deep learning architectures, CNNs, and transformer models with practical implementations.</p>
+        <nav>
+          <div class="nav-left">
+            <a href="#" class="logo">reza</a>
           </div>
-          <div class="focus-card">
-            <div class="focus-icon">💬</div>
-            <h3>Natural Language Processing</h3>
-            <p>Working with LLMs, fine-tuning models, and building NLP applications.</p>
+          <div class="nav-right">
+            <a href="#chat">chat</a>
+            <a href="#experience">experience</a>
+            <a href="#projects">projects</a>
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+              <span class="theme-icon">◐</span>
+            </button>
           </div>
-          <div class="focus-card">
-            <div class="focus-icon">🔬</div>
-            <h3>Research & Development</h3>
-            <p>Exploring cutting-edge AI papers and implementing novel approaches.</p>
-          </div>
-        </div>
+        </nav>
       </div>
-    </section>
+    </header>
 
-    <section id="skills">
-      <div class="container">
-        <h2 class="section-title">Skills</h2>
-        <div class="skills-grid">
-          <div class="skill-card">
-            <h3>🧠 Machine Learning & AI</h3>
-            <div class="skill-tags">
-              <a href="https://www.tensorflow.org/" target="_blank" rel="noopener noreferrer" class="tag">TensorFlow</a>
-              <a href="https://pytorch.org/" target="_blank" rel="noopener noreferrer" class="tag">PyTorch</a>
-              <a href="https://huggingface.co/" target="_blank" rel="noopener noreferrer" class="tag">HuggingFace</a>
-              <a href="https://huggingface.co/docs/transformers" target="_blank" rel="noopener noreferrer" class="tag">Transformers</a>
-              <a href="https://www.langchain.com/" target="_blank" rel="noopener noreferrer" class="tag">LangChain</a>
-              <span class="tag">Neural Networks</span>
-              <span class="tag">NLP</span>
-              <span class="tag">Computer Vision</span>
-              <a href="https://gradio.app/" target="_blank" rel="noopener noreferrer" class="tag">Gradio</a>
-              <a href="https://github.com/unslothai/unsloth" target="_blank" rel="noopener noreferrer" class="tag">Unsloth</a>
+    <main>
+      <section class="hero" id="home">
+        <div class="container">
+          <div class="hero-content">
+            <div class="hero-image">
+              <img src="profile.jpg" alt="Reza Enayati" class="profile-img" />
             </div>
-          </div>
-
-          <div class="skill-card">
-            <h3>🐍 Python & Data Science</h3>
-            <div class="skill-tags">
-              <a href="https://numpy.org/" target="_blank" rel="noopener noreferrer" class="tag">NumPy</a>
-              <a href="https://pandas.pydata.org/" target="_blank" rel="noopener noreferrer" class="tag">Pandas</a>
-              <a href="https://matplotlib.org/" target="_blank" rel="noopener noreferrer" class="tag">Matplotlib</a>
-              <a href="https://seaborn.pydata.org/" target="_blank" rel="noopener noreferrer" class="tag">Seaborn</a>
-              <a href="https://scikit-learn.org/" target="_blank" rel="noopener noreferrer" class="tag">Scikit-learn</a>
-              <a href="https://jupyter.org/" target="_blank" rel="noopener noreferrer" class="tag">Jupyter</a>
-              <a href="https://colab.research.google.com/" target="_blank" rel="noopener noreferrer" class="tag">Google Colab</a>
-              <a href="https://mlflow.org/" target="_blank" rel="noopener noreferrer" class="tag">MLflow</a>
-            </div>
-          </div>
-          
-          <div class="skill-card">
-            <h3>📱 iOS Development </h3>
-            <div class="skill-tags">
-              <a href="https://developer.apple.com/documentation/swiftui" target="_blank" rel="noopener noreferrer" class="tag">SwiftUI</a>
-              <a href="https://developer.apple.com/documentation/coreml" target="_blank" rel="noopener noreferrer" class="tag">Core ML</a>
-              <a href="https://developer.apple.com/documentation/createml" target="_blank" rel="noopener noreferrer" class="tag">Create ML</a>
-              <a href="https://developer.apple.com/documentation/vision" target="_blank" rel="noopener noreferrer" class="tag">Vision Framework</a>
-              <a href="https://developer.apple.com/augmented-reality/" target="_blank" rel="noopener noreferrer" class="tag">ARKit</a>
-              <a href="https://developer.apple.com/documentation/coredata" target="_blank" rel="noopener noreferrer" class="tag">Core Data</a>
-              <span class="tag">MVVM</span>
-              <a href="https://developer.apple.com/documentation/combine" target="_blank" rel="noopener noreferrer" class="tag">Combine</a>
+            <div class="hero-text">
+              <h1>Reza Enayati</h1>
+              <p class="hero-subtitle">building systems that learn, think and sometimes surprise</p>
+              <div class="hero-actions">
+                <a href="mailto:r3zsoft@gmail.com" class="btn-minimal">contact</a>
+                <a href="resume.pdf" class="btn-minimal" download="Reza_Enayati_Resume.pdf">resume</a>
+                <a href="https://calendly.com/rezae/30min" target="_blank" class="btn-minimal">meet</a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="projects">
-      <div class="container">
-        <h2 class="section-title">Projects</h2>
-        <div class="projects-grid">
-
-          <div class="project-card">
-            <div class="project-content">
-              <h3>
-                <a href="https://github.com/nthPerson/COMP-380_Group_Project" target="_blank">
-                  Rezume
-                </a>
-              </h3>
-              <p>
-              Rezume is an AI-powered resume tailoring tool that generates job-specific resumes based on uploaded job descriptions. Designed to boost applicant tracking system (ATS) compatibility and recruiter alignment, it streamlines the job application process for users.
-              </p>
+      <section id="experience">
+        <div class="container">
+          <h2 class="section-title">Experiences</h2>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-date">Sep 2025 - present</div>
+              <div class="timeline-content">
+                <h3>Member of technical staff</h3>
+                <p class="company">koderAi</p>
+                <p class="description">building the world's first ai multi-agent coder</p>
+              </div>
             </div>
-          </div>
-
-          <div class="project-card">
-            <div class="project-content">
-              <h3>
-                <a href="https://github.com/RezEnayati/RezAI" target="_blank">
-                  RezAi 
-                </a>
-              </h3>
-              <p>
-                An AI chatbot fine-tuned on LLaMA 3.1-8B to answer technical and behavioral interview questions in my voice. RezAi is trained on 140+ personal Q&A pairs covering my projects, technical decisions, and personality.
-                To better reflect my communication style and preferences, RezAi was further optimized using Direct Preference Optimization (DPO) on a custom set of response comparisons.
-                The model is hosted on Hugging Face and deployed in the chat interface above. Feel free to test it, and let me know your feedback!
-                Note: RezAi may occasionally produce inaccurate information.
-              </p>
+            <div class="timeline-item">
+              <div class="timeline-date">Jun 2025 - Sep 2025</div>
+              <div class="timeline-content">
+                <h3>Software engineer intern</h3>
+                <p class="company">koderAi</p>
+                <p class="description">developed core ai components for automated code generation</p>
+              </div>
             </div>
-          </div>
-
-          <div class="project-card">
-            <div class="project-content">
-              <h3>
-                <a href="https://github.com/RezEnayati/word2Vec" target="_blank">
-                  Word2Vec from Scratch (SGNS) 
-                </a>
-              </h3>
-              <p>A complete Word2Vec implementation using only NumPy that creates meaningful word embeddings capturing semantic relationships. Uses Skip-gram architecture with negative sampling. The trained model performs word analogies like "king is to man as woman is to queen" by learning consistent vector relationships between words.</p>
-            </div>
-          </div>
-
-          <div class="project-card">
-            <div class="project-content">
-              <h3>
-                <a href="https://huggingface.co/spaces/rezaenayati/Live_Digit_Recognition_Using_CNN" target="_blank">
-                  Live Digit Recognition (CNN + Gradio)
-                </a>
-              </h3>
-              <p>An interactive digit recognition tool built using TensorFlow and Convolutional Neural Networks. Users can draw digits on a live sketchpad via Gradio, and the model predicts them in real-time. Includes preprocessing, augmentation, and custom threshold logic for better real-world inference.</p>
-            </div>
-          </div>
-
-          <div class="project-card">
-            <div class="project-content">
-              <h3>
-                <a href="https://github.com/RezEnayati/PizzaGuysFoodCost" target="_blank">
-                  Pizza Guys Food Cost Calculator
-                </a>
-              </h3>
-              <p>A SwiftUI app that calculates food cost for Pizza Guys franchises. It gives a breakdown of prices in real time using a custom pricing engine that automatically converts units and costs to the desired amounts. It also follows the MVVM architecture.</p>
-            </div>
-          </div>
-
-          <div class="project-card">
-            <div class="project-content">
-              <h3>
-                <a href="https://github.com/RezEnayati/HotProspects" target="_blank">
-                  HotProspects
-                </a>
-              </h3>
-              <p>A modern iOS networking application that helps users manage business contacts through QR codes, with built-in contact management and notification features, using Swift Data for persistence.</p>
+            <div class="timeline-item">
+              <div class="timeline-date">Jun 2024 - Sep 2024</div>
+              <div class="timeline-content">
+                <h3>Software engineering intern</h3>
+                <p class="company">DJAI</p>
+                <p class="description">developed ml-powered tools for dj software</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-
-<section id="experience">
-  <div class="container">
-    <h2 class="section-title">Experience</h2>
-    <div class="experience-card">
-      <h3>Software Engineer AI at koderAi</h3>
-      <p>Building the world's first AI multi-agent coder.</p>
-    </div>
-    <div class="experience-card">
-      <h3>Software Engineering Intern at DJAI</h3>
-      <p>Developed ML-powered tools for DJ software.</p>
-    </div>
-  </div>
-</section>
-    
-<section id="books">
-  <div class="container">
-    <h2 class="section-title">Favorite Books</h2>
-    <div class="books-grid">
-
-      <div class="book-card">
-        <h3 class="book-title">
-          <a href="https://www.goodreads.com/book/show/43565360-artificial-intelligence" target="_blank" rel="noopener noreferrer">
-            Artificial Intelligence: A Guide For Thinking Humans
-          </a>
-        </h3>
-        <p class="book-author">by Melanie Mitchell</p>
-      </div>
-
-      <div class="book-card">
-        <h3 class="book-title">
-          <a href="https://www.goodreads.com/book/show/44882.Code" target="_blank" rel="noopener noreferrer">
-            Code: The Hidden Language of Computer Hardware and Software
-          </a>
-        </h3>
-        <p class="book-author">by Charles Petzold</p>
-      </div>
-
-      <div class="book-card">
-        <h3 class="book-title">
-          <a href="https://www.goodreads.com/book/show/24113.G_del_Escher_Bach" target="_blank" rel="noopener noreferrer">
-            Gödel, Escher, Bach: an Eternal Golden Braid
-          </a>
-        </h3>
-        <p class="book-author">by Douglas Hofstadter</p>
-      </div>
-
-      <div class="book-card">
-        <h3 class="book-title">
-          <a href="https://www.goodreads.com/book/show/7108725-start-with-why" target="_blank" rel="noopener noreferrer">
-            Start with Why: How Great Leaders Inspire Everyone to Take Action
-          </a>
-        </h3>
-        <p class="book-author">by Simon Sinek</p>
-      </div>
-
-      <div class="book-card">
-        <h3 class="book-title">
-          <a href="https://www.goodreads.com/book/show/55539565-think-again" target="_blank" rel="noopener noreferrer">
-            Think Again: The Power of Knowing What You Don't Know
-          </a>
-        </h3>
-        <p class="book-author">by Adam Grant</p>
-      </div>
-
-      <div class="book-card">
-        <h3 class="book-title">
-          <a href="https://www.goodreads.com/book/show/18050143-zero-to-one" target="_blank" rel="noopener noreferrer">
-            Zero to One: Notes on Startups, or How to Build the Future
-          </a>
-        </h3>
-        <p class="book-author">by Peter Thiel</p>
-      </div>
-
-      <div class="book-card">
-        <h3 class="book-title">
-          <a href="https://www.goodreads.com/book/show/195888801-why-machines-learn" target="_blank" rel="noopener noreferrer">
-            Why Machines Learn: The Elegant Math Behind Modern AI
-          </a>
-        </h3>
-        <p class="book-author">by Anil Ananthaswamy</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-    <section id="papers">
-      <div class="container">
-        <h2 class="section-title">Interesting Papers</h2>
-        <div style="max-width: 800px; margin: 0 auto;">
-          <div class="paper-card">
-            <a href="https://www.nature.com/articles/s41746-025-01512-6.pdf" target="_blank">
-              Assessing and alleviating state anxiety in large language models
-            </a>
-            <p>– Emotional Influence on LLMs.</p>
-          </div>
-          <div class="paper-card">
-            <a href="https://arxiv.org/abs/2407.11438" target="_blank">
-              Trust No Bot
-            </a>
-            <p>– Discovering Personal Disclosures in Human-LLM Conversations in the Wild</p>
-          </div>
-          <div class="paper-card">
-            <a href="https://arxiv.org/abs/2502.03708" target="_blank">
-              Aggregate and conquer
-            </a>
-            <p>– Detecting and steering LLM concepts by combining nonlinear predictors over multiple layers</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="playlist">
-      <div class="container">
-        <h2 class="section-title">My Playlist</h2>
-        <div class="playlist-container">
-          <iframe class="spotify-embed" src="https://open.spotify.com/embed/playlist/3iuRUg9V3HOuEtA8kK5hVf" width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-        </div>
-      </div>
-    </section>
-
-    <section id="connect">
-      <div class="container">
-        <h2 class="section-title">Connect</h2>
-        <div class="connect-links">
-          <a href="https://github.com/rezenayati" target="_blank" class="btn btn-primary">GitHub</a>
-          <a href="https://huggingface.co/rezaenayati" target="_blank" class="btn btn-primary">Hugging Face</a>
-          <a href="https://www.linkedin.com/in/rezaenayati/" target="_blank" class="btn btn-primary">LinkedIn</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container">
-      <p>&copy; 2025 Reza Enayati. All rights reserved.</p>
-    </div>
-  </footer>
-<script type="module">
-  // Import the Gradio client using unpkg CDN
-  import { Client } from "https://unpkg.com/@gradio/client@1.6.0/dist/index.js";
-
-  let gradioClient = null;
-  let isTyping = false;
-
-  // Initialize Gradio client
-  async function initGradioClient() {
-    if (gradioClient) return gradioClient;
-    
-    try {
-      console.log('Connecting to Gradio client...');
-      gradioClient = await Client.connect("rezaenayati/RezAi");
-      console.log('Connected to Gradio client successfully');
-      return gradioClient;
-    } catch (error) {
-      console.error('Failed to connect to Gradio client:', error);
-      showError('Failed to connect to chat service. Please try again later.');
-      return null;
-    }
-  }
-
-  // Send message to Gradio
-  async function sendToGradio(message) {
-    try {
-      const client = await initGradioClient();
-      if (!client) {
-        throw new Error('Client not connected');
-      }
-
-      console.log('Sending message to Gradio:', message);
-      const result = await client.predict("/chat", { 
-        message: message 
-      });
-      console.log('Received response from Gradio:', result);
+      </section>
       
-      return result.data[0] || 'Sorry, I didn\'t receive a proper response.';
-    } catch (error) {
-      console.error('Error calling Gradio API:', error);
-      throw error;
-    }
-  }
+      <section id="chat">
+        <div class="container">
+          <h2 class="section-title">Chat with rezai</h2>
+          <div class="chat-container">
+            <div class="chat-messages" id="chatMessages">
+              <div class="welcome-message">
+                ask me anything about my work or experience
+              </div>
+            </div>
+            
+            <div class="chat-input-container">
+              <div class="chat-input-wrapper">
+                <textarea 
+                  id="chatInput" 
+                  class="chat-input" 
+                  placeholder="type your message..."
+                  rows="1"
+                ></textarea>
+                <button id="sendButton" class="send-button">
+                  <span id="sendIcon">→</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-  // Add message to chat
-  function addMessage(content, isUser = false) {
-    const chatMessages = document.getElementById('chatMessages');
-    if (!chatMessages) {
-      console.error('Chat messages container not found');
-      return;
-    }
-    
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
-    messageDiv.textContent = content;
-    
-    // Remove welcome message if it exists
-    const welcomeMsg = chatMessages.querySelector('.welcome-message');
-    if (welcomeMsg) {
-      welcomeMsg.remove();
-    }
-    
-    chatMessages.appendChild(messageDiv);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
+      <section id="projects">
+        <div class="container">
+          <h2 class="section-title">Selected projects</h2>
+          <div class="projects-list">
+            <div class="project-item">
+              <div class="project-header">
+                <h3><a href="https://github.com/RezEnayati/RezAI" target="_blank">rezai</a></h3>
+                <span class="project-tech">llama 3.1 • dpo • huggingface • fine-tuning • unsloth</span>
+              </div>
+              <p>ai chatbot fine-tuned on personal q&a data using direct preference optimization</p>
+            </div>
 
-  // Show typing indicator
-  function showTyping() {
-    if (isTyping) return;
-    
-    const chatMessages = document.getElementById('chatMessages');
-    if (!chatMessages) return;
-    
-    isTyping = true;
-    const typingDiv = document.createElement('div');
-    typingDiv.className = 'message typing';
-    typingDiv.id = 'typingIndicator';
-    typingDiv.innerHTML = `
-      <div class="typing-indicator">
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
+            <div class="project-item">
+              <div class="project-header">
+                <h3><a href="https://github.com/RezEnayati" target="_blank">neuralove</a></h3>
+                <span class="project-tech">swiftui • kotilin • fastapi • embeddings • openai • pinecone • rag</span>
+              </div>
+              <p>ai and embeddings powered dating app (in progress)</p>
+            </div>
+
+            <div class="project-item">
+              <div class="project-header">
+                <h3><a href="https://github.com/nthPerson/COMP-380_Group_Project" target="_blank">rezume</a></h3>
+                <span class="project-tech">react • flask • openai • embeddings • vercel</span>
+              </div>
+              <p>ai-powered resume tailoring tool for job-specific applications</p>
+            </div>
+
+            <div class="project-item">
+              <div class="project-header">
+                <h3><a href="https://github.com/RezEnayati/word2Vec" target="_blank">word2vec implementation</a></h3>
+                <span class="project-tech">numpy </span>
+              </div>
+              <p>complete word2vec implementation from scratch using skip-gram negative sampling</p>
+            </div>
+
+            <div class="project-item">
+              <div class="project-header">
+                <h3><a href="https://huggingface.co/spaces/rezaenayati/Live_Digit_Recognition_Using_CNN" target="_blank">live digit recognition</a></h3>
+                <span class="project-tech">tensorflow • cnn • gradio • huggingface</span>
+              </div>
+              <p>real-time digit recognition with interactive drawing interface</p>
+            </div>
+
+            <div class="project-item">
+              <div class="project-header">
+                <h3><a href="https://github.com/RezEnayati/LazyEye" target="_blank">lazyeye</a></h3>
+                <span class="project-tech">swiftui • mvvm • coreml</span>
+              </div>
+              <p>blink tracker to help reduce eye fatigue</p>
+            </div>
+          </div>
+        </div>
+
+            <div class="project-item">
+              <div class="project-header">
+                <h3><a href="https://github.com/RezEnayati/PizzaGuysFoodCost" target="_blank">food cost calculator</a></h3>
+                <span class="project-tech">swiftui • mvvm </span>
+              </div>
+              <p>ios app for calculating food costs with real-time pricing engine</p>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <section id="connect">
+        <div class="container">
+          <div class="connect-content">
+            <h2 class="section-title">Connect</h2>
+            <div class="connect-links">
+              <a href="https://github.com/rezenayati" target="_blank" class="connect-link">github</a>
+              <a href="https://huggingface.co/rezaenayati" target="_blank" class="connect-link">huggingface</a>
+              <a href="https://www.linkedin.com/in/rezaenayati/" target="_blank" class="connect-link">linkedin</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>© 2025 reza enayati</p>
       </div>
-    `;
-    
-    chatMessages.appendChild(typingDiv);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
+    </footer>
+  </div>
 
-  // Hide typing indicator
-  function hideTyping() {
-    const typingIndicator = document.getElementById('typingIndicator');
-    if (typingIndicator) {
-      typingIndicator.remove();
-    }
-    isTyping = false;
-  }
-
-  // Show error message
-  function showError(message) {
-    const chatMessages = document.getElementById('chatMessages');
-    if (!chatMessages) return;
-    
-    const errorDiv = document.createElement('div');
-    errorDiv.className = 'error-message';
-    errorDiv.textContent = message;
-    chatMessages.appendChild(errorDiv);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
-
-  // Send message function
-  async function sendMessage() {
-    console.log('sendMessage called');
-    
-    const chatInput = document.getElementById('chatInput');
-    const sendButton = document.getElementById('sendButton');
-    const sendText = document.getElementById('sendText');
-    const sendIcon = document.getElementById('sendIcon');
-    
-    if (!chatInput || !sendButton || !sendText || !sendIcon) {
-      console.error('Chat elements not found');
-      return;
-    }
-    
-    const message = chatInput.value.trim();
-    console.log('Message:', message);
-    
-    if (!message || sendButton.disabled) {
-      return;
-    }
-
-    // Add user message
-    addMessage(message, true);
-    chatInput.value = '';
-    chatInput.style.height = 'auto';
-
-    // Disable input
-    sendButton.disabled = true;
-    sendText.textContent = 'Sending...';
-    sendIcon.textContent = '⏳';
-
-    // Show typing indicator
-    showTyping();
-
-    try {
-      const response = await sendToGradio(message);
-      hideTyping();
-      addMessage(response, false);
-    } catch (error) {
-      hideTyping();
-      console.error('Error:', error);
-      showError('Sorry, something went wrong. Please try again later.');
-    } finally {
-      // Re-enable input
-      sendButton.disabled = false;
-      sendText.textContent = 'Send';
-      sendIcon.textContent = '🚀';
-      chatInput.focus();
-    }
-  }
-
-  // Theme toggle functionality
-  function toggleTheme() {
-    const html = document.documentElement;
-    const currentTheme = html.getAttribute('data-theme');
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    
-    html.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-  }
-
-  // Make functions available globally for onclick handlers
-  window.sendMessage = sendMessage;
-  window.toggleTheme = toggleTheme;
-
-  // Initialize everything
-  function initialize() {
-    console.log('Initializing chat application...');
-    
-    // Initialize theme
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    if (savedTheme) {
-      document.documentElement.setAttribute('data-theme', savedTheme);
-    } else if (prefersDark) {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    }
-
-    // Set up chat functionality
-    const chatInput = document.getElementById('chatInput');
-    const sendButton = document.getElementById('sendButton');
-    
-    if (!chatInput || !sendButton) {
-      console.error('Chat elements not found, retrying in 1 second...');
-      setTimeout(initialize, 1000);
-      return;
-    }
-
-    console.log('Chat elements found, setting up event listeners...');
-
-    // Auto-resize textarea
-    chatInput.addEventListener('input', function() {
-      this.style.height = 'auto';
-      this.style.height = Math.min(this.scrollHeight, 120) + 'px';
-    });
-
-    // Handle Enter key
-    chatInput.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        sendMessage();
-      }
-    });
-
-    // Handle button click (backup to onclick)
-    sendButton.addEventListener('click', function(e) {
-      e.preventDefault();
-      console.log('Send button clicked via event listener');
-      sendMessage();
-    });
-
-    // Mobile menu
-    const mobileMenuBtn = document.querySelector('.mobile-menu');
-    const navLinks = document.querySelector('.nav-links');
-    
-    if (mobileMenuBtn && navLinks) {
-      mobileMenuBtn.addEventListener('click', () => {
-        navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-      });
-    }
-
-    // Smooth scrolling
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-          if (window.innerWidth <= 768) {
-            const navLinks = document.querySelector('.nav-links');
-            if (navLinks) {
-              navLinks.style.display = 'none';
-            }
-          }
-        }
-      });
-    });
-
-    // Add wave animation
-    const style = document.createElement('style');
-    style.innerHTML = `
-      .wave {
-        display: inline-block;
-        animation: wave-animation 2.5s infinite;
-        transform-origin: 70% 70%;
-      }
-      
-      @keyframes wave-animation {
-        0% { transform: rotate(0deg); }
-        10% { transform: rotate(14deg); }
-        20% { transform: rotate(-8deg); }
-        30% { transform: rotate(14deg); }
-        40% { transform: rotate(-4deg); }
-        50% { transform: rotate(10deg); }
-        60% { transform: rotate(0deg); }
-        100% { transform: rotate(0deg); }
-      }
-    `;
-    document.head.appendChild(style);
-
-    console.log('Chat initialization complete!');
-    
-    // Initialize Gradio connection
-    initGradioClient();
-  }
-
-  // Start initialization when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initialize);
-  } else {
-    // DOM is already loaded
-    initialize();
-  }
-</script>
+  <!-- Scripts -->
+  <script type="module" src="main.js"></script>
 </body>
 </html>
