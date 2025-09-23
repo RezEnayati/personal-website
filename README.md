@@ -17,9 +17,7 @@ It highlights my work in AI/ML, iOS development, and other areas I'm passionate 
 - Favorite books, research papers, and even a playlist
 
 The site is fully custom-built with HTML, CSS, and JavaScript, and deployed via GitHub Pages.
-
----
-
+--
 ## 📬 Contact
 
 **Email:** r3zsoft@gmail.com
