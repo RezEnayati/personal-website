@@ -88,16 +88,6 @@ async function sendNotification(visitor: VisitorData): Promise<void> {
 
   if (!resendKey || !notifyEmail) return;
 
-  // Only notify for notable visitors
-  const isNotable =
-    visitor.company ||
-    visitor.referrer?.includes('linkedin') ||
-    visitor.referrer?.includes('github') ||
-    visitor.referrer?.includes('jobs') ||
-    visitor.referrer?.includes('careers');
-
-  if (!isNotable) return;
-
   try {
     await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -161,47 +151,44 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       companyConfidence: companyInfo.confidence,
     };
 
-    // Store in Vercel KV if available
-    const kvUrl = process.env.KV_REST_API_URL;
-    const kvToken = process.env.KV_REST_API_TOKEN;
+    // Store in Upstash Redis (supports both old KV and new Upstash env var names)
+    const kvUrl = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
+    const kvToken = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
 
     if (kvUrl && kvToken) {
+      const headers = {
+        Authorization: `Bearer ${kvToken}`,
+        'Content-Type': 'application/json',
+      };
+
       // Store visitor data
       const visitorId = `visitor:${Date.now()}:${ip.replace(/\./g, '-')}`;
-      await fetch(`${kvUrl}/set/${visitorId}`, {
+      await fetch(`${kvUrl}`, {
         method: 'POST',
-        headers: {
-          Authorization: `Bearer ${kvToken}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(visitor),
+        headers,
+        body: JSON.stringify(['SET', visitorId, JSON.stringify(visitor)]),
       });
 
       // Add to recent visitors list (keep last 1000)
-      await fetch(`${kvUrl}/lpush/recent_visitors`, {
+      await fetch(`${kvUrl}`, {
         method: 'POST',
-        headers: {
-          Authorization: `Bearer ${kvToken}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(visitorId),
+        headers,
+        body: JSON.stringify(['LPUSH', 'recent_visitors', visitorId]),
       });
 
       // Trim to keep only recent
-      await fetch(`${kvUrl}/ltrim/recent_visitors/0/999`, {
+      await fetch(`${kvUrl}`, {
         method: 'POST',
-        headers: {
-          Authorization: `Bearer ${kvToken}`,
-        },
+        headers,
+        body: JSON.stringify(['LTRIM', 'recent_visitors', '0', '999']),
       });
 
       // Increment daily counter
       const today = new Date().toISOString().split('T')[0];
-      await fetch(`${kvUrl}/incr/visits:${today}`, {
+      await fetch(`${kvUrl}`, {
         method: 'POST',
-        headers: {
-          Authorization: `Bearer ${kvToken}`,
-        },
+        headers,
+        body: JSON.stringify(['INCR', `visits:${today}`]),
       });
     }
 
