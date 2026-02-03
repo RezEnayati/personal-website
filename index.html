@@ -1,234 +1,35 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Reza Enayati — AI / ML" />
-  <meta name="keywords" content="Reza Enayati, iOS Developer, Swift, AI, NLP, Resume, Projects, Software Engineer">
-  <meta name="author" content="Reza Enayati">
-  
-  <meta property="og:title" content="Reza Enayati">
-  <meta property="og:description" content="AI / ML">
-  <meta property="og:image" content="https://rezaenayati.co/profile.jpg">
-  <meta property="og:url" content="https://rezaenayati.co">
-  <meta property="og:type" content="website">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Reza Enayati — AI / ML Engineer" />
+    <meta name="keywords" content="Reza Enayati, AI, ML, Software Engineer, Machine Learning, NLP">
+    <meta name="author" content="Reza Enayati">
 
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Reza Enayati">
-  <meta name="twitter:description" content="AI / ML">
-  <meta name="twitter:image" content="https://rezaenayati.co/profile.jpg">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Reza Enayati">
+    <meta property="og:description" content="AI / ML Engineer">
+    <meta property="og:image" content="https://rezaenayati.co/profile.jpg">
+    <meta property="og:url" content="https://rezaenayati.co">
+    <meta property="og:type" content="website">
 
-  <title>Reza Enayati</title>
-  <link rel="icon" href="favicon2.png" type="image/png">
-  
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  
-  <!-- Styles -->
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <!-- Loading Screen -->
-  <div id="loadingScreen" class="loading-screen">
-    <div class="loading-content">
-      <div class="robot-container">
-        <span class="robot"></span>
-      </div>
-      
-      <div class="typing-container">
-        <div class="typing-text" id="typingText">
-          <span class="cursor"></span>
-        </div>
-      </div>
-    </div>
-  </div>
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Reza Enayati">
+    <meta name="twitter:description" content="AI / ML Engineer">
+    <meta name="twitter:image" content="https://rezaenayati.co/profile.jpg">
 
-  <!-- Main Content -->
-  <div id="mainContent" class="main-content">
-    <header>
-      <div class="container">
-        <nav>
-          <div class="nav-left">
-            <a href="#" class="logo">reza</a>
-          </div>
-          <div class="nav-right">
-            <a href="#chat">chat</a>
-            <a href="#experience">experience</a>
-            <a href="#projects">projects</a>
-            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
-              <span class="theme-icon">◐</span>
-            </button>
-          </div>
-        </nav>
-      </div>
-    </header>
+    <title>Reza Enayati</title>
+    <link rel="icon" href="/favicon2.png" type="image/png">
 
-    <main>
-      <section class="hero" id="home">
-        <div class="container">
-          <div class="hero-content">
-            <div class="hero-image">
-              <img src="profile.jpg" alt="Reza Enayati" class="profile-img" />
-            </div>
-            <div class="hero-text">
-              <h1>Reza Enayati</h1>
-              <p class="hero-subtitle">i really like to code.</p>
-              <div class="hero-actions">
-                <a href="mailto:r3zsoft@gmail.com" class="btn-minimal">contact</a>
-                <a href="resume.pdf" class="btn-minimal" download="Reza_Enayati_Resume.pdf">resume</a>
-                <a href="https://calendly.com/rezae/30min" target="_blank" class="btn-minimal">meet</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="experience">
-        <div class="container">
-          <h2 class="section-title">Experiences</h2>
-          <div class="timeline">
-            <div class="timeline-item">
-              <div class="timeline-date">Sep 2025 - present</div>
-              <div class="timeline-content">
-                <h3>Member of technical staff</h3>
-                <p class="company">koderAI</p>
-                <p class="description">building the world's first ai multi-agent coder</p>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-date">Jun 2025 - Sep 2025</div>
-              <div class="timeline-content">
-                <h3>Software engineering intern</h3>
-                <p class="company">koderAI</p>
-                <p class="description">developed core ai components for automated code generation</p>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-date">Jun 2024 - Sep 2024</div>
-              <div class="timeline-content">
-                <h3>Software engineering intern</h3>
-                <p class="company">DJAI</p>
-                <p class="description">developed ml-powered tools for dj software</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      <section id="chat">
-        <div class="container">
-          <h2 class="section-title">Chat with rezai</h2>
-          <div class="chat-container">
-            <div class="chat-messages" id="chatMessages">
-              <div class="welcome-message">
-                ask me anything about my work or experience
-              </div>
-            </div>
-            
-            <div class="chat-input-container">
-              <div class="chat-input-wrapper">
-                <textarea 
-                  id="chatInput" 
-                  class="chat-input" 
-                  placeholder="type your message..."
-                  rows="1"
-                ></textarea>
-                <button id="sendButton" class="send-button">
-                  <span id="sendIcon">→</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="projects">
-  <div class="container">
-    <h2 class="section-title">Selected projects</h2>
-    <div class="projects-list">
-      <div class="project-item">
-        <div class="project-header">
-          <h3><a href="https://github.com/RezEnayati/RezAI" target="_blank">rezai</a></h3>
-          <span class="project-tech">llama 3.1 • dpo • huggingface • fine-tuning • unsloth</span>
-        </div>
-        <p>ai chatbot fine-tuned on personal q&a data using direct preference optimization</p>
-      </div>
-
-      <div class="project-item">
-        <div class="project-header">
-          <h3><a href="https://github.com/RezEnayati" target="_blank">neuralove</a></h3>
-          <span class="project-tech">swiftui • kotlin • fastapi • embeddings • openai • pinecone • rag</span>
-        </div>
-        <p>ai and embeddings powered dating app (in progress)</p>
-      </div>
-
-      <div class="project-item">
-        <div class="project-header">
-          <h3><a href="https://github.com/nthPerson/COMP-380_Group_Project" target="_blank">rezume</a></h3>
-          <span class="project-tech">react • flask • openai • embeddings • vercel</span>
-        </div>
-        <p>ai-powered resume tailoring tool for job-specific applications</p>
-      </div>
-
-      <div class="project-item">
-        <div class="project-header">
-          <h3><a href="https://github.com/RezEnayati/word2Vec" target="_blank">word2vec implementation</a></h3>
-          <span class="project-tech">numpy</span>
-        </div>
-        <p>complete word2vec implementation from scratch using skip-gram negative sampling</p>
-      </div>
-
-      <div class="project-item">
-        <div class="project-header">
-          <h3><a href="https://huggingface.co/spaces/rezaenayati/Live_Digit_Recognition_Using_CNN" target="_blank">live digit recognition</a></h3>
-          <span class="project-tech">tensorflow • cnn • gradio • huggingface</span>
-        </div>
-        <p>real-time digit recognition with interactive drawing interface</p>
-      </div>
-
-      <div class="project-item">
-        <div class="project-header">
-          <h3><a href="https://github.com/RezEnayati/LazyEye" target="_blank">lazyeye</a></h3>
-          <span class="project-tech">swiftui • mvvm • coreml</span>
-        </div>
-        <p>blink tracker to help reduce eye fatigue</p>
-      </div>
-
-      <div class="project-item">
-        <div class="project-header">
-          <h3><a href="https://github.com/RezEnayati/PizzaGuysFoodCost" target="_blank">food cost calculator</a></h3>
-          <span class="project-tech">swiftui • mvvm</span>
-        </div>
-        <p>ios app for calculating food costs with real-time pricing engine</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-      <section id="connect">
-        <div class="container">
-          <div class="connect-content">
-            <h2 class="section-title">Connect</h2>
-            <div class="connect-links">
-              <a href="https://github.com/rezenayati" target="_blank" class="connect-link">github</a>
-              <a href="https://huggingface.co/rezaenayati" target="_blank" class="connect-link">huggingface</a>
-              <a href="https://www.linkedin.com/in/rezaenayati/" target="_blank" class="connect-link">linkedin</a>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <div class="container">
-        <p>© 2025 reza enayati</p>
-      </div>
-    </footer>
-  </div>
-
-  <!-- Scripts -->
-  <script type="module" src="main.js"></script>
-</body>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
