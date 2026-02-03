@@ -17,6 +17,7 @@
     "@react-three/postprocessing": "^3.0.4",
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.8.1",
+    "@vercel/node": "^5.5.28",
     "clsx": "^2.1.1",
     "framer-motion": "^12.15.0",
     "gsap": "^3.14.2",
