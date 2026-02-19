@@ -1,0 +1,46 @@
+---
+title: "Hello World"
+date: "2026-02-19"
+description: "First post — why I'm starting a blog, what I'll write about, and how this site was built."
+tags: ["meta", "engineering"]
+readingTime: "3 min read"
+---
+
+# Hello World
+
+This is the first post on my blog. I've been meaning to start writing for a while — not just about code, but about the ideas behind the code.
+
+## Why a blog?
+
+Most of what I learn happens in between the lines: debugging a subtle race condition at 2 AM, realizing that a "simple" feature touches six systems, or finding an elegant solution buried in a paper from 2017. Those moments rarely make it into a README.
+
+A blog is a place for that kind of thinking.
+
+## What I'll write about
+
+Mostly **AI/ML engineering** — fine-tuning, embeddings, retrieval systems, and the infrastructure that holds it all together. But also:
+
+- Building products that feel good to use
+- The gap between research papers and production code
+- Tools and workflows that actually help
+
+## How this site is built
+
+This portfolio runs on **React 19** + **Vite** + **Tailwind v4**, deployed on Vercel. The blog uses MDX compiled at build time with `rehype-pretty-code` for syntax highlighting.
+
+Here's a quick example:
+
+```python
+from transformers import AutoModelForCausalLM
+
+model = AutoModelForCausalLM.from_pretrained(
+    "meta-llama/Llama-3.1-8B",
+    device_map="auto",
+)
+```
+
+Simple stack, fast builds, no CMS. Just markdown files in a `content/` folder.
+
+---
+
+More soon.

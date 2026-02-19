@@ -24,6 +24,13 @@ interface DashboardStats {
   referrerCounts?: Record<string, number>;
 }
 
+function slugify(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
 export function Dashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
@@ -31,6 +38,17 @@ export function Dashboard() {
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // Blog editor state
+  const [postTitle, setPostTitle] = useState('');
+  const [postSlug, setPostSlug] = useState('');
+  const [postDescription, setPostDescription] = useState('');
+  const [postTags, setPostTags] = useState('');
+  const [postReadingTime, setPostReadingTime] = useState('');
+  const [postContent, setPostContent] = useState('');
+  const [publishing, setPublishing] = useState(false);
+  const [publishResult, setPublishResult] = useState<{ success: boolean; url?: string; error?: string } | null>(null);
+  const [slugManuallyEdited, setSlugManuallyEdited] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -73,6 +91,62 @@ export function Dashboard() {
       handleLogin({ preventDefault: () => {} } as React.FormEvent);
     }
   }, []);
+
+  const handleTitleChange = (value: string) => {
+    setPostTitle(value);
+    if (!slugManuallyEdited) {
+      setPostSlug(slugify(value));
+    }
+  };
+
+  const handlePublish = async () => {
+    if (!postTitle || !postSlug || !postDescription || !postContent) {
+      setPublishResult({ success: false, error: 'Please fill in all required fields.' });
+      return;
+    }
+
+    setPublishing(true);
+    setPublishResult(null);
+
+    try {
+      const res = await fetch('/api/blog/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${password}`,
+        },
+        body: JSON.stringify({
+          title: postTitle,
+          slug: postSlug,
+          description: postDescription,
+          tags: postTags,
+          readingTime: postReadingTime,
+          content: postContent,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setPublishResult({ success: false, error: data.error || 'Failed to publish' });
+        return;
+      }
+
+      setPublishResult({ success: true, url: data.url });
+      // Reset form
+      setPostTitle('');
+      setPostSlug('');
+      setPostDescription('');
+      setPostTags('');
+      setPostReadingTime('');
+      setPostContent('');
+      setSlugManuallyEdited(false);
+    } catch {
+      setPublishResult({ success: false, error: 'Network error — could not reach the server.' });
+    } finally {
+      setPublishing(false);
+    }
+  };
 
   if (!isAuthenticated) {
     return (
@@ -122,6 +196,9 @@ export function Dashboard() {
       </div>
     );
   }
+
+  const inputClass =
+    'w-full px-4 py-3 bg-[var(--color-background)] border border-[var(--color-border)] rounded-xl text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-accent-cyan)] text-sm';
 
   return (
     <div className="min-h-screen bg-[var(--color-background)] p-6">
@@ -236,6 +313,133 @@ export function Dashboard() {
             </div>
           </motion.div>
         </div>
+
+        {/* New Blog Post Editor */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.45 }}
+          className="bg-[var(--color-surface)] rounded-2xl border border-[var(--color-border)] p-6 mb-8"
+        >
+          <h2 className="text-lg font-semibold mb-6">New Blog Post</h2>
+
+          <div className="space-y-4">
+            {/* Title + Slug row */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm text-[var(--color-text-secondary)] mb-1.5">
+                  Title <span className="text-red-400">*</span>
+                </label>
+                <input
+                  type="text"
+                  value={postTitle}
+                  onChange={(e) => handleTitleChange(e.target.value)}
+                  className={inputClass}
+                  placeholder="My New Post"
+                />
+              </div>
+              <div>
+                <label className="block text-sm text-[var(--color-text-secondary)] mb-1.5">
+                  Slug <span className="text-red-400">*</span>
+                </label>
+                <input
+                  type="text"
+                  value={postSlug}
+                  onChange={(e) => {
+                    setPostSlug(e.target.value);
+                    setSlugManuallyEdited(true);
+                  }}
+                  className={inputClass}
+                  placeholder="my-new-post"
+                />
+              </div>
+            </div>
+
+            {/* Description */}
+            <div>
+              <label className="block text-sm text-[var(--color-text-secondary)] mb-1.5">
+                Description <span className="text-red-400">*</span>
+              </label>
+              <input
+                type="text"
+                value={postDescription}
+                onChange={(e) => setPostDescription(e.target.value)}
+                className={inputClass}
+                placeholder="A short summary for the blog index and SEO"
+              />
+            </div>
+
+            {/* Tags + Reading Time row */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm text-[var(--color-text-secondary)] mb-1.5">
+                  Tags
+                </label>
+                <input
+                  type="text"
+                  value={postTags}
+                  onChange={(e) => setPostTags(e.target.value)}
+                  className={inputClass}
+                  placeholder="ai, engineering, tutorial"
+                />
+              </div>
+              <div>
+                <label className="block text-sm text-[var(--color-text-secondary)] mb-1.5">
+                  Reading Time
+                </label>
+                <input
+                  type="text"
+                  value={postReadingTime}
+                  onChange={(e) => setPostReadingTime(e.target.value)}
+                  className={inputClass}
+                  placeholder="Auto-calculated if left blank"
+                />
+              </div>
+            </div>
+
+            {/* Content */}
+            <div>
+              <label className="block text-sm text-[var(--color-text-secondary)] mb-1.5">
+                Content (MDX) <span className="text-red-400">*</span>
+              </label>
+              <textarea
+                value={postContent}
+                onChange={(e) => setPostContent(e.target.value)}
+                className={`${inputClass} min-h-[300px] font-mono resize-y`}
+                placeholder={"# My Post\n\nWrite your MDX content here..."}
+              />
+            </div>
+
+            {/* Publish result */}
+            {publishResult && (
+              <div
+                className={`p-4 rounded-xl text-sm ${
+                  publishResult.success
+                    ? 'bg-green-500/10 border border-green-500/30 text-green-400'
+                    : 'bg-red-500/10 border border-red-500/30 text-red-400'
+                }`}
+              >
+                {publishResult.success ? (
+                  <>
+                    Post published! It will be live at{' '}
+                    <span className="font-medium">{publishResult.url}</span> after the next deploy (~30s).
+                  </>
+                ) : (
+                  publishResult.error
+                )}
+              </div>
+            )}
+
+            {/* Publish button */}
+            <button
+              onClick={handlePublish}
+              disabled={publishing}
+              className="px-6 py-3 bg-gradient-to-r from-[var(--color-accent-cyan)] to-[var(--color-accent-purple)] text-white rounded-xl font-medium disabled:opacity-50 text-sm"
+            >
+              {publishing ? 'Publishing...' : 'Publish Post'}
+            </button>
+          </div>
+        </motion.div>
 
         {/* Visitors Table */}
         <motion.div
