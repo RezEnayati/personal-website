@@ -33,6 +33,14 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    id: 'claude-central',
+    title: 'claude central',
+    description: 'Terminal-based dashboard for managing multiple Claude Code CLI sessions, styled after an MTA subway arrival board',
+    tech: ['Python', 'curses', 'FastAPI', 'AppleScript'],
+    link: 'https://github.com/RezEnayati/ClaudeCentral',
+    featured: true,
+  },
+  {
     id: 'word2vec',
     title: 'word2vec implementation',
     description: 'Complete word2vec implementation from scratch using skip-gram negative sampling',

@@ -342,7 +342,37 @@ function HomePage() {
             </div>
           </div>
 
-          {/* Card 6 - Manifesto */}
+          {/* Card 6 - claude central */}
+          <div className="card min-h-[80vh] md:min-w-screen md:w-screen md:h-screen flex items-center px-6 bg-white">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-6xl mx-auto">
+              <div className="flex flex-col justify-center">
+                <p className="text-sm text-gray-500 mb-4">05</p>
+                <h3 className="text-[clamp(2rem,5vw,4rem)] font-medium leading-[1] tracking-[-0.03em] mb-6">
+                  claude central
+                </h3>
+                <p className="text-gray-600 max-w-md leading-relaxed">
+                  Terminal dashboard for managing multiple Claude Code CLI sessions.
+                  MTA subway board-inspired UI with real-time status, CPU monitoring,
+                  and session lifecycle management.
+                </p>
+                <a
+                  href="https://github.com/RezEnayati/ClaudeCentral"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group mt-8 text-sm font-medium hover:opacity-60 transition-opacity inline-flex items-center gap-2"
+                >
+                  View Project <span className="inline-block transition-transform group-hover:translate-x-1">&rarr;</span>
+                </a>
+              </div>
+              <div className="flex items-center justify-center">
+                <div className="w-full aspect-square bg-[#1a1a2e] rounded-3xl flex items-center justify-center">
+                  <span className="text-[clamp(4rem,8vw,8rem)] font-bold text-[#00FF88]">C</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 7 - Manifesto */}
           <div className="card min-h-[80vh] md:min-w-screen md:w-screen md:h-screen flex items-center px-6 bg-[#FFE600]">
             <div className="max-w-3xl mx-auto">
               <p className="text-[clamp(1.5rem,3vw,2.5rem)] font-medium leading-[1.3] tracking-[-0.02em]">
