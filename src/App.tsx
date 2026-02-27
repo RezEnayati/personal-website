@@ -334,22 +334,24 @@ function StackingCard({
     const card = cardRef.current;
     if (!card) return;
 
-    const mm = ScrollTrigger.matchMedia({
+    const triggers: ScrollTrigger[] = [];
+
+    ScrollTrigger.matchMedia({
       "(min-width: 768px)": function () {
-        ScrollTrigger.create({
-          trigger: card,
-          start: "top top",
-          pin: true,
-          pinSpacing: false,
-          end: "+=100%",
-        });
+        triggers.push(
+          ScrollTrigger.create({
+            trigger: card,
+            start: "top top",
+            pin: true,
+            pinSpacing: false,
+            end: "+=100%",
+          })
+        );
       },
     });
 
     return () => {
-      if (mm && typeof mm === "object" && "revert" in mm) {
-        (mm as { revert: () => void }).revert();
-      }
+      triggers.forEach((t) => t.kill());
     };
   }, []);
 
