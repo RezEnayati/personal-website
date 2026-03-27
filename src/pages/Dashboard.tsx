@@ -486,7 +486,7 @@ export function Dashboard() {
                     <td className="px-6 py-4 text-sm text-[var(--color-text-secondary)]">
                       {[visitor.city, visitor.country].filter(Boolean).join(', ') || 'Unknown'}
                     </td>
-                    <td className="px-6 py-4 text-sm text-[var(--color-text-secondary)] max-w-xs truncate">
+                    <td className="px-6 py-4 text-sm text-[var(--color-text-secondary)] max-w-sm break-all" title={visitor.referrer || 'Direct'}>
                       {visitor.referrer || 'Direct'}
                     </td>
                     <td className="px-6 py-4">
